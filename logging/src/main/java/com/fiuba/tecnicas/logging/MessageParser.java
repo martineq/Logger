@@ -17,12 +17,17 @@ public class MessageParser {
 	private String message;
 	private List<Pattern> formattedMessages =  new ArrayList<Pattern>();
 	private MessageFunctionConstants messageFunctions = new MessageFunctionConstants();
+	private Log log;
 	
 
-	public MessageParser(String message, Date date) {
-		this.date = date != null ? date : new Date();
+	public MessageParser(String message) {
+		//this.date = date != null ? date : new Date();
 		this.message = message;
-		this.parseMessage();
+		
+	}
+	
+	public void setLog(Log log){
+		this.log = log;
 	}
 	
 	private void validateInputMessage(){
@@ -30,6 +35,7 @@ public class MessageParser {
 	}
 	
 	private void parseMessage(){
+		
 		String[] parts = this.message.split("%");
 		for (String part : parts) {
 			this.savePattern(part);
@@ -50,7 +56,10 @@ public class MessageParser {
 		if(!this.isPorcentajeSimbol(part)){
 			try {
 				Class aClass = Class.forName("com.fiuba.tecnicas.logging."+this.getOption(part));
-				formattedMessages.add((Pattern) aClass.newInstance());
+				Pattern pattern = (Pattern) aClass.newInstance();
+				pattern.setAttributes(part);
+				pattern.setLog(log);
+				formattedMessages.add(pattern);
 			} catch (InstantiationException e) {
 				e.printStackTrace();
 			} catch (IllegalAccessException e) {
@@ -66,10 +75,15 @@ public class MessageParser {
 	private String getOption(String part){
 		return messageFunctions.getFunctionName(String.valueOf(part.charAt(0)));
 	}
+	
 	public String getMessage() {
-		Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String dateformated = formatter.format(this.date);
-		return dateformated;
+		this.parseMessage();
+		String message = "";
+		
+		for (Pattern pattern : formattedMessages) {
+			message += pattern.getMessage();
+		}
+		return message;
 	}
 
 }

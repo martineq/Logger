@@ -18,10 +18,11 @@ public class MessageParserTest {
     public void parseDate() {
 		
 		String messageToParse = "%d{HH:mm:ss}";
-		Date date = new Date();
-		MessageParser messageParser = new MessageParser(messageToParse,date);
-		Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String dateformated = formatter.format(date);
+		Log log = new Log();
+		MessageParser messageParser = new MessageParser(messageToParse);
+		messageParser.setLog(log);
+		Format formatter = new SimpleDateFormat("HH:mm:ss");
+		String dateformated = formatter.format(log.getDate());
 		assertEquals(messageParser.getMessage(), dateformated);
     }	
 	
