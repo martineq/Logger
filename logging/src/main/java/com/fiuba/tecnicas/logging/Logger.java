@@ -4,8 +4,10 @@ public class Logger {
 	
 	private static Logger Instance = null;
 	private static boolean activo = true;
+	private static LoggerSettings configuracion;
+	
 	private Logger(){
-		
+		configuracion = new LoggerSettings();
 	}
 	public static Logger getInstance(){
 		if (Instance == null) { 
@@ -37,6 +39,10 @@ public class Logger {
 	
 	final public void fatal(Message mensaje){
 		
+	}
+	
+	final public LoggerSettings getSettings(){
+		return configuracion;
 	}
 	
 	final public void activar(){
