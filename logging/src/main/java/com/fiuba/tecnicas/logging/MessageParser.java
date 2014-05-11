@@ -2,6 +2,7 @@ package com.fiuba.tecnicas.logging;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,7 @@ public class MessageParser {
 
 	private Date date;
 	private String message;
-	private List<Pattern> formattedMessages;
+	private List<Pattern> formattedMessages =  new ArrayList<Pattern>();
 	private MessageFunctionConstants messageFunctions = new MessageFunctionConstants();
 	
 
@@ -48,7 +49,7 @@ public class MessageParser {
 	private void savePattern(String part) {
 		if(!this.isPorcentajeSimbol(part)){
 			try {
-				Class aClass = Class.forName(this.getOption(part));
+				Class aClass = Class.forName("com.fiuba.tecnicas.logging."+this.getOption(part));
 				formattedMessages.add((Pattern) aClass.newInstance());
 			} catch (InstantiationException e) {
 				e.printStackTrace();
