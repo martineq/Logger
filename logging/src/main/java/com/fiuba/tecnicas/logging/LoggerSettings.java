@@ -51,6 +51,10 @@ public class LoggerSettings {
 		return separator;
 	}
 	
+	public String getRutaArchivo(){
+		return rutaArchivoDestino;
+	}
+	
 	public String getDateFormat(){
 		return dateFormat;
 	}
@@ -69,5 +73,18 @@ public class LoggerSettings {
 	
 	public void desactivarLogginPorArchivo(){
 		loggingPorArchivo = true;
+	}
+	
+	public boolean perteneceAlFiltroElNivel(String nivel){
+		LoggerLevels level = LoggerLevels.valueOf(nivel);
+		return (level.getId() >= levelFilter.getId());
+	}
+	
+	public boolean estaActivadoLoggPorConsola(){
+		return loggingPorConsola;
+	}
+	
+	public boolean estaActivadoLoggPorArchivo(){
+		return loggingPorArchivo;
 	}
 }
