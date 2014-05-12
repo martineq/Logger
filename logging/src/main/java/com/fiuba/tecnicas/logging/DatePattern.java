@@ -33,9 +33,7 @@ public class DatePattern extends Pattern {
 	}
 
 	private String getDateFormat() {
-		System.out.println(attribute);
-		String[] result = attribute.split("\\{(.*?)\\}");
-		System.out.println(result[0]);
-		return result[0];
+		String[] result = attribute.split("\\{|\\}");
+		return result[1];
 	}
 }
