@@ -25,37 +25,22 @@ public class Logger {
     	throw new CloneNotSupportedException(); 
 	}
 	
-	final private void loggearMensaje(Message message, String nivel) throws LoggerInactivoException{
-		if(activo){
-			if(configuracion.perteneceAlFiltroElNivel(nivel)){
-				if(configuracion.estaActivadoLoggPorArchivo()){
-					FileWriter fichero = null;
-					PrintWriter pw = null;
-					try{
-						fichero = new FileWriter(configuracion.getRutaArchivo(),true);
-						pw = new PrintWriter(fichero);
-						//pw.println(evento); //aca se escribe en el archivo lo que se va a loguear
-					}catch(IOException e){
-						e.printStackTrace();
-					}
-					if(fichero != null){
-						try{
-							fichero.close();
-						}catch(IOException e){
-							e.printStackTrace();
-						}
-					}
-						
-				}
-				if(configuracion.estaActivadoLoggPorConsola()){
-					//System.out.println(evento) //se escribe por consola lo que se va a loggear
-				}
-			}
-		}else
-			throw new LoggerInactivoException();
+	final private void loggearMensaje(String message, String nivel) throws LoggerInactivoException{
+		if(canLog(nivel)){
+			Log log = new Log(nivel);
+			log.setConfig(configuracion);
+			log.save();
+		}
+			
+				
+			
+		
+	}
+	private boolean canLog(String nivel) {
+		return activo && configuracion.perteneceAlFiltroElNivel(nivel);
 	}
 	
-	final public void warn(Message mensaje){
+	final public void warn(String mensaje){
 		try{
 			loggearMensaje(mensaje,"WARN");
 		
@@ -65,7 +50,7 @@ public class Logger {
 		
 	}
 	
-	final public void debug(Message mensaje){
+	final public void debug(String mensaje){
 		try{
 			loggearMensaje(mensaje,"DEBUG");
 		
@@ -74,7 +59,7 @@ public class Logger {
 		}
 	}
 	
-	final public void error(Message mensaje){
+	final public void error(String mensaje){
 		try{
 			loggearMensaje(mensaje,"ERROR");
 		
@@ -83,7 +68,7 @@ public class Logger {
 		}
 	}
 	
-	final public void info(Message mensaje){
+	final public void info(String mensaje){
 		try{
 			loggearMensaje(mensaje,"INFO");
 		
@@ -92,7 +77,7 @@ public class Logger {
 		}
 	}
 	
-	final public void fatal(Message mensaje){
+	final public void fatal(String mensaje){
 		try{
 			loggearMensaje(mensaje,"FATAL");
 		

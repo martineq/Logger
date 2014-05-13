@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.018" errors="0" skipped="0" tests="1" name="com.fiuba.tecnicas.logging.MessageParserTest">
+<testsuite failures="0" time="0" errors="0" skipped="0" tests="1" name="com.fiuba.tecnicas.logging.DatePatternTest">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64"/>
@@ -59,5 +59,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.018" classname="com.fiuba.tecnicas.logging.MessageParserTest" name="parseDate"/>
+  <testcase time="0" classname="com.fiuba.tecnicas.logging.DatePatternTest" name="detectInvalidDatePatternTest"/>
 </testsuite>
