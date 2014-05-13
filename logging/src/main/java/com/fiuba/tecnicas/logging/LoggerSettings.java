@@ -38,8 +38,13 @@ public class LoggerSettings {
 
 	private LoggerLevels levelFilter;//TODO: Ver que representa levelFilter
 	
+<<<<<<< HEAD
 	//private LoggerLevels loggerLevel;
 	private Vector<String> formatList; //TODO: Reemplazar la carga en los String por lo implementado para c/u de los formatos. Ver loadFormats()
+=======
+	private LoggerLevels loggerLevel;
+	private String formatList; //TODO: Reemplazar la carga en el String por lo implementado para c/u de los formatos. Ver loadFormats()
+>>>>>>> 2b9f58a415c8d33d6eaa28ace79ae8245f926b5c
 	private String[] filePaths;
 	private String separator;
 	private boolean fileLogging;
@@ -50,7 +55,13 @@ public class LoggerSettings {
 		levelFilter = LoggerLevels.valueOf("INFO");
 		separator = SEPARADOR_VALOR_DEFAULT;
 		simpleDateFormat = new SimpleDateFormat(FECHA_VALOR_DEFAULT);
+<<<<<<< HEAD
 		consoleLogging = true;
+=======
+		consoleLogging = false;
+		formatList = new String();
+		filePaths = new String[0];
+>>>>>>> 2b9f58a415c8d33d6eaa28ace79ae8245f926b5c
 	}
 	
 	public String getLevelFilter(){
@@ -135,22 +146,22 @@ public class LoggerSettings {
     
     private void loadFormats(String[] formats){
         for(String formatUnit:formats){
-        	// TODO: Cambiar los ".add(String)" por la funcionalidad. Se tiene en cuenta la posicion en el vector en la que se enuentra para replicarla a la hora de imprimir el log
-        	if(formatUnit.startsWith(OPERADOR_PATRON)==false) formatList.add(formatUnit);
-        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_NIVEL)) formatList.add("p");
-        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_HILO)) formatList.add("t");
-        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_MENSAJE)) formatList.add("m");
-        	else if(formatUnit.startsWith(OPERADOR_PATRON+OPERADOR_PATRON)) formatList.add("%");
-        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_SEPARADOR)) formatList.add(separator);
-        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_LINEA)) formatList.add("L");
-        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_ARCHIVO)) formatList.add("F");
-        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_METODO)) formatList.add("M");
+        	// TODO: Cambiar los ".concat(String)" por la funcionalidad. Se tiene en cuenta la posicion en el vector en la que se enuentra para replicarla a la hora de imprimir el log
+        	if(formatUnit.startsWith(OPERADOR_PATRON)==false) formatList=formatList.concat(formatUnit);
+        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_NIVEL)) formatList=formatList.concat("p");
+        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_HILO)) formatList=formatList.concat("t");
+        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_MENSAJE)) formatList=formatList.concat("m");
+        	else if(formatUnit.startsWith(OPERADOR_PATRON+OPERADOR_PATRON)) formatList=formatList.concat("%");
+        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_SEPARADOR)) formatList=formatList.concat(separator);
+        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_LINEA)) formatList=formatList.concat("L");
+        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_ARCHIVO)) formatList=formatList.concat("F");
+        	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_METODO)) formatList=formatList.concat("M");
         	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_FECHA)){
-        		formatList.add("d");
+        		formatList=formatList.concat("d");
         		uploadTimeFormat(formatUnit);
         	}
-        	
          }
+        
     }
 
 
