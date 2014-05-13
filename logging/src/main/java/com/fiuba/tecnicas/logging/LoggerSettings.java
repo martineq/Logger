@@ -66,6 +66,7 @@ public class LoggerSettings {
 	}
 	
 	public String getSeparator(){
+		System.out.println(separator);
 		return separator;
 	}
 	
