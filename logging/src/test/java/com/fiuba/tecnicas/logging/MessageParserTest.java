@@ -18,7 +18,7 @@ public class MessageParserTest {
     public void parseDate() {
 		
 		String messageToParse = "%d{HH:mm:ss}";
-		Log log = new Log();
+		Log log = new Log("WARN");
 		MessageParser messageParser = new MessageParser(messageToParse);
 		messageParser.setLog(log);
 		Format formatter = new SimpleDateFormat("HH:mm:ss");

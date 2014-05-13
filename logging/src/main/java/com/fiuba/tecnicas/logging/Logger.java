@@ -7,11 +7,11 @@ import java.io.PrintWriter;
 public class Logger {
 	
 	private static Logger Instance = null;
-	private static boolean activo = true;
-	private static LoggerSettings configuracion;
+	private static boolean active = true;
+	private static LoggerSettings configuration;
 	
 	private Logger(){
-		configuracion = new LoggerSettings();
+		configuration = new LoggerSettings();
 	}
 	public static Logger getInstance(){
 		if (Instance == null) { 
@@ -25,10 +25,10 @@ public class Logger {
     	throw new CloneNotSupportedException(); 
 	}
 	
-	final private void loggearMensaje(String message, String nivel) throws LoggerInactivoException{
+	final private void loggMessage(String message, String nivel){
 		if(canLog(nivel)){
 			Log log = new Log(nivel);
-			log.setConfig(configuracion);
+			log.setConfig(configuration);
 			log.save();
 		}
 			
@@ -37,70 +37,44 @@ public class Logger {
 		
 	}
 	private boolean canLog(String nivel) {
-		return activo && configuracion.perteneceAlFiltroElNivel(nivel);
+		return active && configuration.perteneceAlFiltroElNivel(nivel);
 	}
 	
 	final public void warn(String mensaje){
-		try{
-			loggearMensaje(mensaje,"WARN");
-		
-		}catch(LoggerInactivoException e){
-			e.printStackTrace();
-		}
+			loggMessage(mensaje,"WARN");
 		
 	}
 	
 	final public void debug(String mensaje){
-		try{
-			loggearMensaje(mensaje,"DEBUG");
-		
-		}catch(LoggerInactivoException e){
-			e.printStackTrace();
-		}
+		loggMessage(mensaje,"DEBUG");
 	}
 	
 	final public void error(String mensaje){
-		try{
-			loggearMensaje(mensaje,"ERROR");
-		
-		}catch(LoggerInactivoException e){
-			e.printStackTrace();
-		}
+		loggMessage(mensaje,"ERROR");
 	}
 	
 	final public void info(String mensaje){
-		try{
-			loggearMensaje(mensaje,"INFO");
-		
-		}catch(LoggerInactivoException e){
-			e.printStackTrace();
-		}
+		loggMessage(mensaje,"INFO");
 	}
 	
 	final public void fatal(String mensaje){
-		try{
-			loggearMensaje(mensaje,"FATAL");
-		
-		}catch(LoggerInactivoException e){
-			e.printStackTrace();
-		}
-		
+		loggMessage(mensaje,"FATAL");		
 	}
 	
 	final public LoggerSettings getSettings(){
-		return configuracion;
+		return configuration;
 	}
 	
-	final public void activar(){
-		activo = true;
+	final public void activate(){
+		active = true;
 	}
 	
-	final public void desactivar(){
-		activo = false;
+	final public void deactivate(){
+		active = false;
 	}
 	
-	final public boolean EstaActivado(){
-		return activo;
+	final public boolean isActivated(){
+		return active;
 	}
 	
 }

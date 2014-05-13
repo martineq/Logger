@@ -36,25 +36,25 @@ public class LoggerSettings {
 	final static String INDICADOR_ARCHIVO = "F";
 	final static String INDICADOR_METODO = "M";
 	
-	private LoggerLevels nivelesDeLog;
+	private LoggerLevels logLevels;
 	private LoggerLevels levelFilter;
 	private String separator;
-	private String rutaArchivoDestino;
+	private String filePath;
 	SimpleDateFormat simpleDateFormat;
-	private boolean loggingPorConsola;
-	private boolean loggingPorArchivo;
+	private boolean consoleLogging;
+	private boolean fileLogging;
 	
 	public LoggerSettings(){
 		levelFilter = LoggerLevels.INFO;
 		separator = SEPARADOR_VALOR_DEFAULT;
-		rutaArchivoDestino = RUTA_ARCHIVO_LOG;  // TODO: Ver si finalmente se carga del archivo de properties o no
+		filePath = RUTA_ARCHIVO_LOG;  // TODO: Ver si finalmente se carga del archivo de properties o no
 		simpleDateFormat = new SimpleDateFormat(FECHA_VALOR_DEFAULT);
-		loggingPorArchivo = false;
-		loggingPorConsola = true;
+		consoleLogging= false;
+		fileLogging = true;
 	}
 	
-	public void setRutaArchivo(String file){
-		rutaArchivoDestino = file;
+	public void setFilePath(String file){
+		filePath = file;
 	}
 	
 	public String getLevelFilter(){
@@ -65,79 +65,84 @@ public class LoggerSettings {
 		return separator;
 	}
 	
-	public String getRutaArchivo(){
-		return rutaArchivoDestino;
+	public String getFilePath(){
+		return filePath;
 	}
 	
 	public SimpleDateFormat getSimpleDateFormat(){
 		return simpleDateFormat;
 	}
 	
-	public void activarLogginPorConsola(){
-		loggingPorConsola = true;
+	public void enableLoggingToConsole(){
+		consoleLogging = true;
 	}
 	
-	public void desactivarLogginPorConsola(){
-		loggingPorConsola = false;
+	public void disableLoggingToConsole(){
+		consoleLogging = false;
 	}
 	
-	public void activarLogginPorArchivo(){
-		loggingPorArchivo = true;
+	public void enableLoggingToFile(){
+		fileLogging = true;
 	}
 	
-	public void desactivarLogginPorArchivo(){
-		loggingPorArchivo = false;
+	public void disableLoggingToFile(){
+		fileLogging = false;
 	}
 	
+	/**
+	 * se valida si el parametro corresponde a un nivel a la derecha (superior) o al mismo nivel filtro
+	 * @param nivel
+	 * @return
+	 */
 	public boolean perteneceAlFiltroElNivel(String nivel){
 		LoggerLevels level = LoggerLevels.valueOf(nivel);
 		return (level.getId() >= levelFilter.getId());
 	}
 	
-	public boolean estaActivadoLoggPorConsola(){
-		return loggingPorConsola;
+	public boolean consoleLogEnabled(){
+		return consoleLogging;
 	}
 	
-	public boolean estaActivadoLoggPorArchivo(){
-		return loggingPorArchivo;
+	public boolean enabledToLogFile(){
+		return fileLogging;
 	}
 	
-	public void cargarArchivoProperties(){
+	public void fileUploadProperties(){
 	    Properties properties = new Properties();
 	    try {
 	      properties.load(new FileInputStream(RUTA_ARCHIVO_PROPERTIES));
 	    } catch (IOException e) {
 	    	System.out.println( "Error de archivo" );
-	    	// TODO: Se podrían cargar todos valores por defecto sin depender del archivo
+	    	// TODO: Se podrï¿½an cargar todos valores por defecto sin depender del archivo
 	    }
-	    cargarValoresDeProperties(properties);
+	    valuesLoadingProperties(properties);
 	}
 
 
-    private void cargarValoresDeProperties(Properties properties){
+    private void valuesLoadingProperties(Properties properties){
         separator = properties.getProperty(SEPARADOR_ETIQUETA,SEPARADOR_VALOR_DEFAULT);
         String level = properties.getProperty(NIVEL_ETIQUETA,NIVEL_VALOR_DEFAULT); 
-        nivelesDeLog =  LoggerLevels.valueOf(level);
-        obtenerFormatos(properties);
+        logLevels =  LoggerLevels.valueOf(level);
+        obtainFormats(properties);
     }
 
 
-    private void obtenerFormatos(Properties properties){
+    private void obtainFormats(Properties properties){
     	String format = properties.getProperty(FORMATO_ETIQUETA,FORMATO_VALOR_DEFAULT);
-    	dividirYCargarFormatos(format);
+    	divideAndLoadFormats(format);
     }
     
     
-    private void dividirYCargarFormatos(String format){
+    private void divideAndLoadFormats(String format){
     	format = format.replaceAll(REGEX_ESPACIOS,"");
         String[] formatList = format.split("["+separator+"]"+REGEX_AGREGAR_SEPARADOR_DEFAULT);	
-        cargarFormatos(formatList);
+        loadFormats(formatList);
     }
     
     
-    private void cargarFormatos(String[] formatList){
+    private void loadFormats(String[] formatList){
         for(String formatUnit:formatList){
-        	// TODO: Cambiar los println's por la funcionalidad. OJO que hay que tener en cuenta la posición en el vector en la que se enuentra para replicarla a la hora de imprimir el log
+        	// TODO: Cambiar los println's por la funcionalidad. OJO que hay que tener en cuenta la posiciï¿½n en el vector en la que se enuentra para replicarla a la hora de imprimir el log
         	if(formatUnit.startsWith(OPERADOR_PATRON)==false) System.out.println("cargo literal: "+formatUnit);
         	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_NIVEL)) System.out.println("cargo %p");
         	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_HILO)) System.out.println("cargo %t");
@@ -149,14 +154,14 @@ public class LoggerSettings {
         	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_METODO)) System.out.println("cargo %M");
         	else if(formatUnit.startsWith(OPERADOR_PATRON+INDICADOR_FECHA)){
         		System.out.print("cargo valor fecha: ");
-        		cargarFormatoHora(formatUnit);
+        		uploadTimeFormat(formatUnit);
         	}
         	
          }
     }
 	
 
-    private void cargarFormatoHora(String formatoDateObtenido){
+    private void uploadTimeFormat(String formatoDateObtenido){
     	String stringDateFormat = formatoDateObtenido.substring(3, formatoDateObtenido.length()-1);
    	   	simpleDateFormat = new SimpleDateFormat(stringDateFormat);
         System.out.println(simpleDateFormat.format(new Date()));	
