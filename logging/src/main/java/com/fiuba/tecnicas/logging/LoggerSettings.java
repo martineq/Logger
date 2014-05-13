@@ -38,13 +38,13 @@ public class LoggerSettings {
 
 	private LoggerLevels levelFilter;//TODO: Ver que representa levelFilter
 	
-<<<<<<< HEAD
+
 	//private LoggerLevels loggerLevel;
-	private Vector<String> formatList; //TODO: Reemplazar la carga en los String por lo implementado para c/u de los formatos. Ver loadFormats()
-=======
+	private String formatList; //TODO: Reemplazar la carga en los String por lo implementado para c/u de los formatos. Ver loadFormats()
+
 	private LoggerLevels loggerLevel;
-	private String formatList; //TODO: Reemplazar la carga en el String por lo implementado para c/u de los formatos. Ver loadFormats()
->>>>>>> 2b9f58a415c8d33d6eaa28ace79ae8245f926b5c
+	//private String formatList; //TODO: Reemplazar la carga en el String por lo implementado para c/u de los formatos. Ver loadFormats()
+
 	private String[] filePaths;
 	private String separator;
 	private boolean fileLogging;
@@ -55,13 +55,10 @@ public class LoggerSettings {
 		levelFilter = LoggerLevels.valueOf("INFO");
 		separator = SEPARADOR_VALOR_DEFAULT;
 		simpleDateFormat = new SimpleDateFormat(FECHA_VALOR_DEFAULT);
-<<<<<<< HEAD
 		consoleLogging = true;
-=======
-		consoleLogging = false;
+
 		formatList = new String();
 		filePaths = new String[0];
->>>>>>> 2b9f58a415c8d33d6eaa28ace79ae8245f926b5c
 	}
 	
 	public String getLevelFilter(){

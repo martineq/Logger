@@ -88,7 +88,7 @@ public class MessageParser {
 		String message = "";
 		
 		for (Pattern pattern : formattedMessages) {
-			message += pattern.getMessage()+getSeparator();
+			message += pattern.getMessage()+getSeparator();//Sacar el del final
 		}
 		return message;
 	}
