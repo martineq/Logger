@@ -15,15 +15,37 @@ import static org.junit.Assert.assertEquals;
 public class MessageParserTest {
 	
 	@Test
-    public void parseDate() {
+    public void parseDateTest() {
 		
 		String messageToParse = "%d{HH:mm:ss}";
-		Log log = new Log("WARN");
+		Log log = new Log("ojo con el test","WARN");
 		MessageParser messageParser = new MessageParser(messageToParse);
 		messageParser.setLog(log);
 		Format formatter = new SimpleDateFormat("HH:mm:ss");
 		String dateformated = formatter.format(log.getDate());
 		assertEquals(messageParser.getMessage(), dateformated);
+    }	
+	
+	@Test
+    public void parseLevelTest() {
+		
+		String messageToParse = "%p";
+		Log log = new Log("ojo con el test","WARN");
+		MessageParser messageParser = new MessageParser(messageToParse);
+		messageParser.setLog(log);
+		
+		assertEquals(messageParser.getMessage(), "WARN");
+    }	
+	
+	@Test
+    public void parseMessageTest() {
+		
+		String messageToParse = "%m";
+		Log log = new Log("ojo con el test","WARN");
+		MessageParser messageParser = new MessageParser(messageToParse);
+		messageParser.setLog(log);
+		
+		assertEquals(messageParser.getMessage(), "ojo con el test");
     }	
 	
 	

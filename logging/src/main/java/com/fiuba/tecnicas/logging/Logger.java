@@ -27,7 +27,7 @@ public class Logger {
 	
 	final private void loggMessage(String message, String nivel){
 		if(canLog(nivel)){
-			Log log = new Log(nivel);
+			Log log = new Log(message,nivel);
 			log.setConfig(configuration);
 			log.save();
 		}

@@ -1,12 +1,10 @@
 package com.fiuba.tecnicas.logging;
 
-
-
-public class LevelPattern extends Pattern {
+public class MessagePattern extends Pattern{
 
 	@Override
 	public String getMessage() {
-		return this.log.getLevel();
+		return this.log.getMessage();
 	}
-		
+
 }

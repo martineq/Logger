@@ -10,7 +10,11 @@ import java.util.Map;
 
 
 
-
+/**
+ * 
+ * @author damian
+ *
+ */
 public class MessageParser {
 
 	private Date date;
@@ -19,7 +23,10 @@ public class MessageParser {
 	private MessageFunctionConstants messageFunctions = new MessageFunctionConstants();
 	private Log log;
 	
-
+	/**
+	 * 
+	 * @param message
+	 */
 	public MessageParser(String message) {
 		//this.date = date != null ? date : new Date();
 		this.message = message;
@@ -81,9 +88,13 @@ public class MessageParser {
 		String message = "";
 		
 		for (Pattern pattern : formattedMessages) {
-			message += pattern.getMessage();
+			message += pattern.getMessage()+getSeparator();
 		}
 		return message;
+	}
+
+	private String getSeparator() {
+		return this.log.getSeparator();
 	}
 
 }

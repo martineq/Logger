@@ -38,18 +38,19 @@ public class LoggerSettings {
 
 	private LoggerLevels levelFilter;//TODO: Ver que representa levelFilter
 	
-	private LoggerLevels loggerLevel;
+	//private LoggerLevels loggerLevel;
 	private Vector<String> formatList; //TODO: Reemplazar la carga en los String por lo implementado para c/u de los formatos. Ver loadFormats()
 	private String[] filePaths;
 	private String separator;
+	private boolean fileLogging;
 	private boolean consoleLogging;
 	SimpleDateFormat simpleDateFormat;
 
 	public LoggerSettings(){
-		loggerLevel = LoggerLevels.INFO;
+		levelFilter = LoggerLevels.valueOf("INFO");
 		separator = SEPARADOR_VALOR_DEFAULT;
 		simpleDateFormat = new SimpleDateFormat(FECHA_VALOR_DEFAULT);
-		consoleLogging = false;
+		consoleLogging = true;
 	}
 	
 	public String getLevelFilter(){
@@ -69,7 +70,7 @@ public class LoggerSettings {
 	}
 
 	public LoggerLevels getLoggerLevel(){
-		return loggerLevel;
+		return levelFilter;
 	}
 	
 	/**
@@ -86,7 +87,17 @@ public class LoggerSettings {
 		return consoleLogging;
 	}
 	
-	
+	 
+    public String getFormat(){
+    	return "%d{HH:mm:ss} - %p - %t %m";
+    }
+    
+    public boolean fileLogEnabled(){
+    	return fileLogging;
+    }
+	/**
+	 * Carga el archivo properties
+	 */
 	public void fileUploadProperties(){
 	    Properties properties = new Properties();
 	    try {
@@ -102,7 +113,7 @@ public class LoggerSettings {
     private void valuesLoadingProperties(Properties properties){
         separator = properties.getProperty(SEPARADOR_ETIQUETA,SEPARADOR_VALOR_DEFAULT);
         String level = properties.getProperty(NIVEL_ETIQUETA,NIVEL_VALOR_DEFAULT); 
-        loggerLevel =  LoggerLevels.valueOf(level);
+        levelFilter =  LoggerLevels.valueOf(level);
         if( (properties.getProperty(USO_CONSOLA_ETIQUETA,NIVEL_VALOR_DEFAULT)).equals(VERDADERO_ETIQUETA) ){
         	consoleLogging = true;
         }
@@ -157,5 +168,7 @@ public class LoggerSettings {
     	string = string.replaceAll(REGEX_ESPACIOS,"");
     	return string.split("["+separator+"]"+REGEX_AGREGAR_SEPARADOR_DEFAULT);	
     }
+   
+    
 
 }
