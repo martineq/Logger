@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Properties;
-import java.util.Vector;
 
 
 /**
@@ -37,14 +36,9 @@ public class LoggerSettings {
 	final static String INDICADOR_METODO = "M";
 
 	private LoggerLevels levelFilter;//TODO: Ver que representa levelFilter
-	
-
-	//private LoggerLevels loggerLevel;
-	private String formatList; //TODO: Reemplazar la carga en los String por lo implementado para c/u de los formatos. Ver loadFormats()
 
 	private LoggerLevels loggerLevel;
-	//private String formatList; //TODO: Reemplazar la carga en el String por lo implementado para c/u de los formatos. Ver loadFormats()
-
+	private String formatList; //TODO: Reemplazar la carga en el String por lo implementado para c/u de los formatos. Ver loadFormats()
 	private String[] filePaths;
 	private String separator;
 	private boolean fileLogging;
@@ -56,7 +50,6 @@ public class LoggerSettings {
 		separator = SEPARADOR_VALOR_DEFAULT;
 		simpleDateFormat = new SimpleDateFormat(FECHA_VALOR_DEFAULT);
 		consoleLogging = true;
-
 		formatList = new String();
 		filePaths = new String[0];
 	}
@@ -178,6 +171,6 @@ public class LoggerSettings {
     	return string.split("["+separator+"]"+REGEX_AGREGAR_SEPARADOR_DEFAULT);	
     }
    
-    
+
 
 }
