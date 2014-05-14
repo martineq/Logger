@@ -25,7 +25,7 @@ public class Log {
 	}
 	
 	public String getSeparator(){
-		System.out.println(this.config);
+		//System.out.println(this.config);
 		return this.config.getSeparator();
 	}
 	public void save(){

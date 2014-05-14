@@ -45,6 +45,7 @@ public class MessageParser {
 		
 		String[] parts = this.message.split("%");
 		for (String part : parts) {
+			//System.out.println(part);
 			this.savePattern(part);
 			this.saveSeparator(part);
 		}
@@ -55,8 +56,6 @@ public class MessageParser {
 	}
 	
 	private void saveSeparator(String part) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private void savePattern(String part) {
@@ -76,7 +75,6 @@ public class MessageParser {
 			}
 		}
 			
-			
 		
 	}
 	private String getOption(String part){
@@ -86,14 +84,13 @@ public class MessageParser {
 	public String getMessage() {
 		this.parseMessage();
 		String message = "";
+		for (Pattern pattern : formattedMessages)
+			message += pattern.getMessage();
 		
-		for (Pattern pattern : formattedMessages) 
-			message += pattern.getMessage();// TODO deberia estar automatizado el hecho de poner 
-											//el getSeparador, ya que si debe aparecer, 
-											//deberia aparecer el patron en el formatgo de mensaje +getSeparator();
 		return message;
 	}
-
+	
+	
 	private String getSeparator() {
 		return this.log.getSeparator();
 	}
