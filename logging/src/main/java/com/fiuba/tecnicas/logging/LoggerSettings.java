@@ -6,8 +6,9 @@ import java.util.Properties;
 
 
 /**
- * @author mquiroz
- * Lee y guarda las configuraciones del archivo de Properties para ser usado por el MessageParser
+ * @author Martin Quiroz
+ * 
+ * Reads and saves the settings Properties file for use by the MessageParser
  */
 public class LoggerSettings {
 	
@@ -37,7 +38,7 @@ public class LoggerSettings {
 		formatList = FORMATO_VALOR_DEFAULT;
 		filePaths = new String[0];
 	}
-	
+
 	public String getLevelFilter(){
 		return levelFilter.toString();
 	}
@@ -63,9 +64,12 @@ public class LoggerSettings {
     }
 	
 	/**
-	 * Se valida si el parametro corresponde a un nivel a la derecha (superior) o al mismo nivel filtro
+	 * @author Martin Quiroz
 	 * @param nivel
-	 * @return
+	 * @return 
+	 * 
+	 * Valids if the parameter corresponds to a level on the right (top) or at the same level
+	 * 
 	 */
 	public boolean belongsToLevelFilter(String nivel){
 		LoggerLevels level = LoggerLevels.valueOf(nivel);
@@ -73,7 +77,8 @@ public class LoggerSettings {
 	}
 
 	/**
-	 * Carga el archivo properties
+	 * @author Martin Quiroz
+	 * Loads the Properties file
 	 */
 	public void fileUploadProperties(){
 	    Properties properties = new Properties();
@@ -90,7 +95,6 @@ public class LoggerSettings {
 	    	consoleLogging = true;
 	    }
 	}
-
 
     private void valuesLoadingProperties(Properties properties){
         separator = properties.getProperty(SEPARADOR_ETIQUETA,SEPARADOR_VALOR_DEFAULT);
@@ -117,6 +121,4 @@ public class LoggerSettings {
     	return string.split("["+separator+"]"+REGEX_AGREGAR_SEPARADOR_DEFAULT);	
     }
    
-
-
 }

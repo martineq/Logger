@@ -5,18 +5,23 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+/**
+ * @author Martín Quiroz
+ *
+ *
+ *  config.properties file used:
+ ********************************************************
+ *	separator=+
+ *	format=%d{HH:mm:ss} + %p + %t %n %m + %F %n hola - fin
+ *	level=WARN
+ *	path=C:\\ + C:\\logs
+ *	console=true
+ ********************************************************
+ */
 public class LoggerSettingsTest {
 
 	private static LoggerSettings loggerSettings;
 
-	/* Cargando el archivo config.properties con el contenido
-	 * ********************************************************
-		separator=+
-		format=%d{HH:mm:ss} + %p + %t %n %m + %F %n hola - fin
-		level=WARN
-		path=C:\\ + C:\\logs
-		console=true
-	 * ********************************************************/
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		loggerSettings = new LoggerSettings();
