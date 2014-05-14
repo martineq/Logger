@@ -25,7 +25,7 @@ public class MessageParserTest {
 		messageParser.setLog(log);
 		Format formatter = new SimpleDateFormat("HH:mm:ss");
 		String dateformated = formatter.format(log.getDate());
-		assertEquals(messageParser.getMessage(), dateformated+"-");
+		assertEquals(messageParser.getMessage(), dateformated);
     }	
 	
 	@Test
@@ -39,7 +39,7 @@ public class MessageParserTest {
 		MessageParser messageParser = new MessageParser(messageToParse);
 		messageParser.setLog(log);
 		
-		assertEquals(messageParser.getMessage(), "WARN-");
+		assertEquals(messageParser.getMessage(), "WARN");
     }	
 	
 	@Test
@@ -52,8 +52,8 @@ public class MessageParserTest {
 		MessageParser messageParser = new MessageParser(messageToParse);
 		messageParser.setLog(log);
 		
-		assertEquals(messageParser.getMessage(), "ojo con el test-");
-    }	
+		assertEquals(messageParser.getMessage(), "ojo con el test");
+    }
 	
 	
 }

@@ -1,6 +1,7 @@
 package com.fiuba.tecnicas.logging;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
@@ -11,7 +12,7 @@ public class Log {
 	private String level;
 	LoggerSettings config;
 	private String message;
-	private String thread;
+	private String thread = "thread"; //TODO solucionar este hardcodeo
 	
 	public Log(String message, String level){
 		this.message = message;
@@ -42,8 +43,25 @@ public class Log {
 	
 	private void saveInFiles(String messageToSave) {
 		String[] filesName = config.getFilePaths();
+		FileWriter file = null;
+		PrintWriter pw = null;
 		 for(String fileName:filesName){
-			 
+			 try{
+				 System.out.println(fileName);
+				 file = new FileWriter(fileName,true);
+				 pw = new PrintWriter(file);
+				 pw.println(messageToSave); //aca se escribe en el archivo lo que se va a loguear
+			 }catch(IOException e){
+				 e.printStackTrace();
+				
+			 }
+			if(file != null){
+				try{
+					file.close();
+				}catch(IOException e){
+					e.printStackTrace();
+				}
+			}
 		 }
 		
 	}

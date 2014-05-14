@@ -87,9 +87,10 @@ public class MessageParser {
 		this.parseMessage();
 		String message = "";
 		
-		for (Pattern pattern : formattedMessages) {
-			message += pattern.getMessage()+getSeparator();//Sacar el del final
-		}
+		for (Pattern pattern : formattedMessages) 
+			message += pattern.getMessage();// TODO deberia estar automatizado el hecho de poner 
+											//el getSeparador, ya que si debe aparecer, 
+											//deberia aparecer el patron en el formatgo de mensaje +getSeparator();
 		return message;
 	}
 

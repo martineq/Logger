@@ -16,37 +16,32 @@ public class LoggerSettingsTest {
 	@Before
 	public void setUpBeforeClass() throws Exception {
 		loggerSettings = new LoggerSettings();
-		loggerSettings.fileUploadProperties();
+		//loggerSettings.fileUploadProperties();
 	}
 
 	@Test
 	public void testGetLevelFilter() {
-		assertEquals("WARN", loggerSettings.getLoggerLevel().toString());
+		assertEquals("INFO", loggerSettings.getLoggerLevel().toString());
 	}
+	
+	
+	@Test
+	public void testGetSeparatorShouldReturnTheDefaultSeparator() {
+		String defaultSeparator = "-";
+		assertEquals(defaultSeparator, loggerSettings.getSeparator());
+	}
+	
+	
+	@Test
+	public void testGetSimpleDateFormatShouldReturnTheDefaultDateFormat() {
+		String defaultSimpleDateFormat = "HH:mm:ss";
+		assertEquals(defaultSimpleDateFormat,loggerSettings.getSimpleDateFormat().toPattern());
+	}
+	
 
 	@Test
-	public void testGetSeparator() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testGetFilePaths() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testGetSimpleDateFormat() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testGetLoggerLevel() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public void testConsoleLogEnabled() {
-		fail("Not yet implemented"); // TODO
+	public void testConsoleLogEnabledShouldBeTrue() {
+		assertTrue(loggerSettings.consoleLogEnabled());
 	}
 
 }
