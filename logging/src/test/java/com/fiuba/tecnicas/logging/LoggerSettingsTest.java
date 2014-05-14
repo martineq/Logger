@@ -6,7 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * @author Martín Quiroz
+ * @author Martï¿½n Quiroz
  *
  *
  *  config.properties file used:
@@ -40,7 +40,7 @@ public class LoggerSettingsTest {
 
 	@Test
 	public void testGetFilePaths() {
-		String[] paths = new String[] { "C:\\", "C:\\logs" };
+		String[] paths = new String[] { "C:\\log1.txt", "C:\\logs\\log2.txt" };
 		assertArrayEquals(paths, loggerSettings.getFilePaths());
 	}
 
@@ -60,10 +60,29 @@ public class LoggerSettingsTest {
 	}
 
 	@Test
-	public void testBelongsToLevelFilter() {
-		assertEquals(true,loggerSettings.belongsToLevelFilter("WARN"));
-		assertEquals(true,loggerSettings.belongsToLevelFilter("FATAL"));
-		assertEquals(false,loggerSettings.belongsToLevelFilter("INFO"));
+	public void warnBelongsToLevelFilterWarn() {
+		assertTrue(loggerSettings.belongsToLevelFilter("WARN"));
 	}
+	
+	@Test
+	public void errorBelongsToLevelFilterWarn() {
+		assertTrue(loggerSettings.belongsToLevelFilter("ERROR"));
+	}
+	
+	@Test
+	public void fatalBelongsToLevelFilterWarn() {
+		assertTrue(loggerSettings.belongsToLevelFilter("FATAL"));
+	}
+	
+	@Test
+	public void debugDoesNotBelongToLevelFilterWarn() {
+		assertFalse(loggerSettings.belongsToLevelFilter("DEBUG"));
+	}
+	
+	@Test
+	public void infoDoesNotBelongToLevelFilterWarn() {
+		assertFalse(loggerSettings.belongsToLevelFilter("INFO"));
+	}
+		
 
 }

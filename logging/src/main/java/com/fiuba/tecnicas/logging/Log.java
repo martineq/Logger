@@ -28,7 +28,7 @@ public class Log {
 		//System.out.println(this.config);
 		return this.config.getSeparator();
 	}
-	public void save(){
+	public String save(){
 		String messageToSave = getMessageToSave();
 		if(this.config.consoleLogEnabled()){
 			showMessage(messageToSave);
@@ -36,6 +36,7 @@ public class Log {
 		if(this.config.fileLogEnabled()){
 			saveInFiles(messageToSave);
 		}
+		return messageToSave;
 	}
 	private void showMessage(String messageToSave) {
 		System.out.println(messageToSave);

@@ -16,6 +16,7 @@ public class Logger {
 	public static Logger getInstance(){
 		if (Instance == null) { 
             Instance = new Logger();
+           Instance.activate();
         }
 		return Instance;
 		

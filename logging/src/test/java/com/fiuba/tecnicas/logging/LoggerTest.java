@@ -9,6 +9,8 @@ public class LoggerTest {
 	@Test
 	public void logAWarnTest() {
 		Logger logger = Logger.getInstance();
+		logger.getSettings().fileUploadProperties();
+		logger.activate();
 		logger.warn("Warn De Prueba para que lo veas x tv");
 		
 	}
@@ -27,4 +29,7 @@ public class LoggerTest {
 		assertFalse(logger.isActivated());
 		
 	}
+	
+		
+	
 }
