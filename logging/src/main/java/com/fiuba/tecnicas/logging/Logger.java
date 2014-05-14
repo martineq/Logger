@@ -37,7 +37,7 @@ public class Logger {
 		
 	}
 	private boolean canLog(String nivel) {
-		return active && configuration.perteneceAlFiltroElNivel(nivel);
+		return active && configuration.belongsToLevelFilter(nivel);
 	}
 	
 	final public void warn(String mensaje){

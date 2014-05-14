@@ -2,46 +2,63 @@ package com.fiuba.tecnicas.logging;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
-/**
- * @author Mart
- *
- */
 public class LoggerSettingsTest {
 
-	private LoggerSettings loggerSettings;
-	
-	@Before
-	public void setUpBeforeClass() throws Exception {
+	private static LoggerSettings loggerSettings;
+
+	/* Cargando el archivo config.properties con el contenido
+	 * ********************************************************
+		separator=+
+		format=%d{HH:mm:ss} + %p + %t %n %m + %F %n hola - fin
+		level=WARN
+		path=C:\\ + C:\\logs
+		console=true
+	 * ********************************************************/
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
 		loggerSettings = new LoggerSettings();
-		//loggerSettings.fileUploadProperties();
+		loggerSettings.fileUploadProperties();
 	}
 
 	@Test
 	public void testGetLevelFilter() {
-		assertEquals("INFO", loggerSettings.getLoggerLevel().toString());
+		assertEquals("WARN", loggerSettings.getLevelFilter().toString());
 	}
-	
-	
-	@Test
-	public void testGetSeparatorShouldReturnTheDefaultSeparator() {
-		String defaultSeparator = "-";
-		assertEquals(defaultSeparator, loggerSettings.getSeparator());
-	}
-	
-	
-	@Test
-	public void testGetSimpleDateFormatShouldReturnTheDefaultDateFormat() {
-		String defaultSimpleDateFormat = "HH:mm:ss";
-		assertEquals(defaultSimpleDateFormat,loggerSettings.getSimpleDateFormat().toPattern());
-	}
-	
 
 	@Test
-	public void testConsoleLogEnabledShouldBeTrue() {
-		assertTrue(loggerSettings.consoleLogEnabled());
+	public void testGetSeparator() {
+		assertEquals("+", loggerSettings.getSeparator());
+	}
+
+	@Test
+	public void testGetFilePaths() {
+		String[] paths = new String[] { "C:\\", "C:\\logs" };
+		assertArrayEquals(paths, loggerSettings.getFilePaths());
+	}
+
+	@Test
+	public void testConsoleLogEnabled() {
+		assertEquals(true,loggerSettings.consoleLogEnabled());
+	}
+
+	@Test
+	public void testGetFormat() {
+		assertEquals("%d{HH:mm:ss} + %p + %t %n %m + %F %n hola - fin",loggerSettings.getFormat());
+	}
+
+	@Test
+	public void testFileLogEnabled() {
+		assertEquals(true,loggerSettings.fileLogEnabled());
+	}
+
+	@Test
+	public void testBelongsToLevelFilter() {
+		assertEquals(true,loggerSettings.belongsToLevelFilter("WARN"));
+		assertEquals(true,loggerSettings.belongsToLevelFilter("FATAL"));
+		assertEquals(false,loggerSettings.belongsToLevelFilter("INFO"));
 	}
 
 }
