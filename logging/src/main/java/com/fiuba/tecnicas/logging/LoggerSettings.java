@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-
 /**
  * @author Martin Quiroz
  * 
@@ -12,18 +11,18 @@ import java.util.Properties;
  */
 public class LoggerSettings {
 	
-	final static String RUTA_ARCHIVO_PROPERTIES = "config.properties";
-	final static String SEPARADOR_ETIQUETA = "separator";
-	final static String SEPARADOR_VALOR_DEFAULT = "-";
-	final static String NIVEL_ETIQUETA = "level";
-	final static String NIVEL_VALOR_DEFAULT = "INFO";
-	final static String FORMATO_ETIQUETA = "format";
-	final static String FORMATO_VALOR_DEFAULT = "%d{HH:mm:ss} - %p - %m";
-	final static String RUTAS_LOG_ETIQUETA = "path";
-	final static String USO_CONSOLA_ETIQUETA = "console";
-	final static String VERDADERO_ETIQUETA = "true";
-    final static String REGEX_ESPACIOS = "\\s+";
-    final static String REGEX_AGREGAR_SEPARADOR_DEFAULT = "|%n";
+	final static String PROPERTIES_FILE_PATH = "config.properties";
+	final static String SEPARATOR_LABEL = "separator";
+	final static String SEPARATOR_DEFAULT_VALUE = "-";
+	final static String LEVEL_LABEL = "level";
+	final static String LEVEL_DEFAULT_VALUE = "INFO";
+	final static String FORMAT_LABEL = "format";
+	final static String FORMAT_DEFAULT_VALUE = "%d{HH:mm:ss} - %p - %m";
+	final static String LOG_PATH_LABEL = "path";
+	final static String CONSOLE_USE_LABEL = "console";
+	final static String TRUE_LABEL = "true";
+    final static String REGEX_SPACE = "\\s+";
+    final static String REGEX_ADD_DEFAULT_SEPARATOR = "|%n";
 
     private boolean consoleLogging;
     private String separator;
@@ -33,9 +32,9 @@ public class LoggerSettings {
 	
 	public LoggerSettings(){
 		consoleLogging = false;
-		separator = SEPARADOR_VALOR_DEFAULT;
-		levelFilter = LoggerLevels.valueOf(NIVEL_VALOR_DEFAULT);
-		formatList = FORMATO_VALOR_DEFAULT;
+		separator = SEPARATOR_DEFAULT_VALUE;
+		levelFilter = LoggerLevels.valueOf(LEVEL_DEFAULT_VALUE);
+		formatList = FORMAT_DEFAULT_VALUE;
 		filePaths = new String[0];
 	}
 
@@ -65,11 +64,10 @@ public class LoggerSettings {
 	
 	/**
 	 * @author Martin Quiroz
-	 * @param nivel
-	 * @return 
+	 * @param nivel - name of level
+	 * @return if corresponds to a level
 	 * 
 	 * Valids if the parameter corresponds to a level on the right (top) or at the same level
-	 * 
 	 */
 	public boolean belongsToLevelFilter(String nivel){
 		LoggerLevels level = LoggerLevels.valueOf(nivel);
@@ -84,7 +82,7 @@ public class LoggerSettings {
 	    Properties properties = new Properties();
 	    
 	    try {
-	      properties.load(new FileInputStream(RUTA_ARCHIVO_PROPERTIES));
+	      properties.load(new FileInputStream(PROPERTIES_FILE_PATH));
 	    } catch (IOException e) {
 	    	System.out.println( "Error de archivo. Se cargan valores por defecto." );
 	    }
@@ -97,10 +95,10 @@ public class LoggerSettings {
 	}
 
     private void valuesLoadingProperties(Properties properties){
-        separator = properties.getProperty(SEPARADOR_ETIQUETA,SEPARADOR_VALOR_DEFAULT);
-        String level = properties.getProperty(NIVEL_ETIQUETA,NIVEL_VALOR_DEFAULT); 
+        separator = properties.getProperty(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE);
+        String level = properties.getProperty(LEVEL_LABEL,LEVEL_DEFAULT_VALUE); 
         levelFilter =  LoggerLevels.valueOf(level);
-        if( (properties.getProperty(USO_CONSOLA_ETIQUETA,NIVEL_VALOR_DEFAULT)).equals(VERDADERO_ETIQUETA) ){
+        if( (properties.getProperty(CONSOLE_USE_LABEL,LEVEL_DEFAULT_VALUE)).equals(TRUE_LABEL) ){
         	consoleLogging = true;
         }
         obtainFormats(properties);
@@ -108,17 +106,17 @@ public class LoggerSettings {
     }
 
     private void obtainFormats(Properties properties){
-    	formatList = properties.getProperty(FORMATO_ETIQUETA,FORMATO_VALOR_DEFAULT);
+    	formatList = properties.getProperty(FORMAT_LABEL,FORMAT_DEFAULT_VALUE);
     }
     
     private void obtainPaths(Properties properties){
-    	String paths = properties.getProperty(RUTAS_LOG_ETIQUETA);
+    	String paths = properties.getProperty(LOG_PATH_LABEL);
     	if(paths != null) filePaths = divideStringWithSeparator(paths);
     }
 
     private String[] divideStringWithSeparator(String string){
-    	string = string.replaceAll(REGEX_ESPACIOS,"");
-    	return string.split("["+separator+"]"+REGEX_AGREGAR_SEPARADOR_DEFAULT);	
+    	string = string.replaceAll(REGEX_SPACE,"");
+    	return string.split("["+separator+"]"+REGEX_ADD_DEFAULT_SEPARATOR);	
     }
    
 }

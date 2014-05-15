@@ -6,15 +6,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * @author Mart�n Quiroz
- *
+ * @author Martin Quiroz
  *
  *  config.properties file used:
  ********************************************************
  *	separator=+
  *	format=%d{HH:mm:ss} + %p + %t %n %m + %F %n hola - fin
  *	level=WARN
- *	path=C:\\ + C:\\logs
+ *	path=log1.txt + log2.txt
  *	console=true
  ********************************************************
  */
@@ -82,7 +81,6 @@ public class LoggerSettingsTest {
 	@Test
 	public void infoDoesNotBelongToLevelFilterWarn() {
 		assertFalse(loggerSettings.belongsToLevelFilter("INFO"));
-	}
-		
+	}	
 
 }
