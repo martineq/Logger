@@ -12,13 +12,5 @@ public class FilePattern  extends Pattern{
 		message += this.attribute;
 		return message;
 	}
-	
-	
-	/**
-	 * @see comentario de metodo setAttributes de ThreadPattern, pero en este caso con patron %F
-	 */
-	public void setAttributes(String attribute){
-		this.attribute = attribute.substring(1);
-	}
 
 }

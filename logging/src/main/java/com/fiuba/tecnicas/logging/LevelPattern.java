@@ -14,7 +14,7 @@ public class LevelPattern extends Pattern {
 	/**
 	 * @see comentario de metodo setAttributes de ThreadPattern, pero en este caso con patron %p
 	 */
-	public void setAttributes(String attribute){
+	/*public void setAttributes(String attribute){
 		this.attribute = attribute.substring(1);
-	}
+	}*/
 }

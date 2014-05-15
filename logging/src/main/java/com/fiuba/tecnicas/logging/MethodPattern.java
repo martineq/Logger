@@ -9,12 +9,5 @@ public class MethodPattern extends Pattern {
 		message += attribute;
 		return message;
 	}
-	
-	/**
-	 * @see comentario de setAttributes de ThreadPattern, pero en este caso con patron %M
-	 */
-	public void setAttributes(String attribute){
-		this.attribute = attribute.substring(1);
-	}
 
 }

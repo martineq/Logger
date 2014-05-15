@@ -9,12 +9,6 @@ public class LineNumberPattern extends Pattern{
 		message += attribute;
 		return message;
 	}
-	
-	/**
-	 * @see comentario de metodo setAttributes de ThreadPattern, pero en este caso con patron %L
-	 */
-	public void setAttributes(String attribute){
-		this.attribute = attribute.substring(1);
-	}
+
 
 }
