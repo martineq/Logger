@@ -1,0 +1,2 @@
+23:27:09INFOthread+inicion de programanull+
+23:27:09WARNthread+Warn De Prueba para que lo veas x tvnull+
