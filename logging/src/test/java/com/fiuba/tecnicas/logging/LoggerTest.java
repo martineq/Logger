@@ -11,7 +11,7 @@ public class LoggerTest {
 		Logger logger = Logger.getInstance();
 		logger.getSettings().fileUploadProperties();
 		logger.activate();
-		logger.warn("Warn De Prueba para que lo veas x tv");
+		logger.warn("Warn De Prueba");
 		
 	}
 	

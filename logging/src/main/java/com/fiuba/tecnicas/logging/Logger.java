@@ -22,6 +22,10 @@ public class Logger {
 		
 	}
 	
+	/**
+	 * @throws CloneNotSupportedException para que no se pueda clonar el objeto y poder cumplir
+	 * 		 con las condiones del patron Singleton
+	 */
 	public Object clone() throws CloneNotSupportedException {
     	throw new CloneNotSupportedException(); 
 	}

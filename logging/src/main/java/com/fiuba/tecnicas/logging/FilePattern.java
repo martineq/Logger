@@ -4,8 +4,21 @@ public class FilePattern  extends Pattern{
 
 	@Override
 	public String getMessage() {
-		// TODO Auto-generated method stub
-		return null;
+		String message = "";
+		for(String fileName : log.getFilePaths()){
+			message += fileName;
+			message += " ";
+		}
+		message += this.attribute;
+		return message;
+	}
+	
+	
+	/**
+	 * @see comentario de metodo setAttributes de ThreadPattern, pero en este caso con patron %F
+	 */
+	public void setAttributes(String attribute){
+		this.attribute = attribute.substring(1);
 	}
 
 }

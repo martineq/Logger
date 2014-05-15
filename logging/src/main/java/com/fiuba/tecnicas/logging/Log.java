@@ -12,7 +12,6 @@ public class Log {
 	private String level;
 	LoggerSettings config;
 	private String message;
-	private String thread = "thread"; //TODO solucionar este hardcodeo
 	
 	public Log(String message, String level){
 		this.message = message;
@@ -25,7 +24,6 @@ public class Log {
 	}
 	
 	public String getSeparator(){
-		//System.out.println(this.config);
 		return this.config.getSeparator();
 	}
 	public String save(){
@@ -48,7 +46,6 @@ public class Log {
 		PrintWriter pw = null;
 		 for(String fileName:filesName){
 			 try{
-				 System.out.println(fileName);
 				 file = new FileWriter(fileName,true);
 				 pw = new PrintWriter(file);
 				 pw.println(messageToSave); //aca se escribe en el archivo lo que se va a loguear
@@ -67,6 +64,11 @@ public class Log {
 		
 	}
 	
+	/**
+	 * 
+	 * @return messageToSave, es el mensaje que realmente se debe loggear teniendo en cuenta
+	 * 		   la configuracion del log y el formato del mensaje.
+	 */
 	private String getMessageToSave() {
 		MessageParser messageParser = new MessageParser(config.getFormat());
 		messageParser.setLog(this);
@@ -77,9 +79,7 @@ public class Log {
 		this.config = config;
 		
 	}
-	public String getThread() {
-		return this.thread;
-	}
+	
 	public String getMessage() {
 		return this.message;
 		
@@ -87,5 +87,10 @@ public class Log {
 	public String getLevel() {
 		return this.level;
 	}
+	
+	public String[] getFilePaths(){
+		return this.config.getFilePaths();
+	}
+	
 
 }

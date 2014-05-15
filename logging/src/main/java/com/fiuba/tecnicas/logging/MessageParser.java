@@ -41,23 +41,27 @@ public class MessageParser {
 		//TODO:: deberia tirar una eception si no viene algo valido
 	}
 	
+	/**
+	 * se obtiene cada uno de los patrones del formato de mensaje.
+	 */
+	
 	private void parseMessage(){
 		
 		String[] parts = this.message.split("%");
-		for (String part : parts) {
-			//System.out.println(part);
+		for (String part : parts) 
 			this.savePattern(part);
-			this.saveSeparator(part);
-		}
 	}
 
 	private boolean isPorcentajeSimbol(String part ){
 		return part.equals("");
 	}
 	
-	private void saveSeparator(String part) {
-	}
-
+	
+	/**
+	 *  
+	 * @param part, cadena luego del % para obtener el primer caracter y asi crear la instancia
+	 * del patron correspondiente.
+	 */
 	private void savePattern(String part) {
 		if(!this.isPorcentajeSimbol(part)){
 			try {
