@@ -40,7 +40,7 @@ public class LoggerSettingsTest {
 
 	@Test
 	public void testGetFilePaths() {
-		String[] paths = new String[] { "C:\\log1.txt", "C:\\logs\\log2.txt" };
+		String[] paths = new String[] { "log1.txt", "log2.txt" };
 		assertArrayEquals(paths, loggerSettings.getFilePaths());
 	}
 
