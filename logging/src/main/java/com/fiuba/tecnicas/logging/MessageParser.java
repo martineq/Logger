@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.fiuba.tecnicas.logging.Pattern.Pattern;
+
+
 
 
 /**
@@ -65,7 +68,7 @@ public class MessageParser {
 	private void savePattern(String part) {
 		if(!this.isPorcentajeSimbol(part)){
 			try {
-				Class aClass = Class.forName("com.fiuba.tecnicas.logging."+this.getOption(part));
+				Class aClass = Class.forName("com.fiuba.tecnicas.logging.Pattern."+this.getOption(part));
 				Pattern pattern = (Pattern) aClass.newInstance();
 				pattern.setAttributes(part);
 				pattern.setLog(log);
