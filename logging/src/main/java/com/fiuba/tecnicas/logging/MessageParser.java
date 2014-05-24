@@ -1,13 +1,7 @@
 package com.fiuba.tecnicas.logging;
 
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import com.fiuba.tecnicas.logging.Pattern.Pattern;
 
 
@@ -20,7 +14,6 @@ import com.fiuba.tecnicas.logging.Pattern.Pattern;
  */
 public class MessageParser {
 
-	private Date date;
 	private String message;
 	private List<Pattern> formattedMessages =  new ArrayList<Pattern>();
 	private MessageFunctionConstants messageFunctions = new MessageFunctionConstants();
@@ -40,9 +33,6 @@ public class MessageParser {
 		this.log = log;
 	}
 	
-	private void validateInputMessage(){
-		//TODO:: deberia tirar una eception si no viene algo valido
-	}
 	
 	/**
 	 * se obtiene cada uno de los patrones del formato de mensaje.
@@ -67,24 +57,15 @@ public class MessageParser {
 	 */
 	private void savePattern(String part) {
 		if(!this.isPorcentajeSimbol(part)){
-			try {
-				Class aClass = Class.forName("com.fiuba.tecnicas.logging.Pattern."+this.getOption(part));
-				Pattern pattern = (Pattern) aClass.newInstance();
-				pattern.setAttributes(part);
-				pattern.setLog(log);
-				formattedMessages.add(pattern);
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+			Pattern pattern = this.getOption(part);
+			pattern.setAttributes(part);
+			pattern.setLog(log);
+			formattedMessages.add(pattern);
 		}
 			
 		
 	}
-	private String getOption(String part){
+	private Pattern getOption(String part){
 		return messageFunctions.getFunctionName(String.valueOf(part.charAt(0)));
 	}
 	
@@ -95,11 +76,6 @@ public class MessageParser {
 			message += pattern.getMessage();
 		
 		return message;
-	}
-	
-	
-	private String getSeparator() {
-		return this.log.getSeparator();
 	}
 
 }
