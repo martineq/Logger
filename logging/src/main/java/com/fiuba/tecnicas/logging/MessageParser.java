@@ -46,7 +46,7 @@ public class MessageParser {
 			this.savePattern(part);
 	}
 
-	private boolean isPorcentajeSimbol(String part ){
+	private boolean isPercentSymbol(String part ){
 		return part.equals("");
 	}
 	
@@ -57,7 +57,7 @@ public class MessageParser {
 	 * del patron correspondiente.
 	 */
 	private void savePattern(String part) {
-		if(!this.isPorcentajeSimbol(part)){
+		if(!this.isPercentSymbol(part)){
 			Pattern pattern = this.getOption(part);
 			pattern.setAttributes(part);
 			pattern.setLog(log);

@@ -31,7 +31,7 @@ public class LoggerSettings {
 	private String[] filePaths;
 	
 	public LoggerSettings(){
-		consoleLogging = false;
+		consoleLogging = true;
 		separator = SEPARATOR_DEFAULT_VALUE;
 		levelFilter = LoggerLevels.valueOf(LEVEL_DEFAULT_VALUE);
 		formatList = FORMAT_DEFAULT_VALUE;
@@ -75,7 +75,7 @@ public class LoggerSettings {
 
 	/**
 	 * @author Martin Quiroz
-	 * Loads the Properties file
+	 * Loads the Properties file and saves the values readed
 	 */
 	public void fileUploadProperties(){
 	    Properties properties = new Properties();
@@ -86,19 +86,15 @@ public class LoggerSettings {
 	    	System.out.println( "Error de archivo. Se cargan valores por defecto." );
 	    }
 	    
-	    if(properties.isEmpty() == false){
-	    	valuesLoadingProperties(properties);
-	    }else{
-	    	consoleLogging = true;
-	    }
+	   	loadPropertiesValues(properties);
 	}
 
-    private void valuesLoadingProperties(Properties properties){
+    private void loadPropertiesValues(Properties properties){
         separator = properties.getProperty(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE);
         String level = properties.getProperty(LEVEL_LABEL,LEVEL_DEFAULT_VALUE); 
         levelFilter =  LoggerLevels.valueOf(level);
-        if( (properties.getProperty(CONSOLE_USE_LABEL,LEVEL_DEFAULT_VALUE)).equals(TRUE_LABEL) ){
-        	consoleLogging = true;
+        if( !((properties.getProperty(CONSOLE_USE_LABEL,LEVEL_DEFAULT_VALUE)).equals(TRUE_LABEL)) ){
+        	consoleLogging = false;
         }
         obtainFormats(properties);
         obtainPaths(properties);
