@@ -11,5 +11,10 @@ public enum LoggerLevels {
 	
 	public int getId() {
 	      return valor;
-	 } 
+	 }
+
+	public boolean lessThanOrEqual(String enumerator){
+		LoggerLevels level = LoggerLevels.valueOf(enumerator);
+		return (level.getId() >= this.getId());
+	}
 }

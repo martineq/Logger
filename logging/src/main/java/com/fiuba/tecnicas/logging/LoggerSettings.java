@@ -70,8 +70,7 @@ public class LoggerSettings {
 	 * Valids if the parameter corresponds to a level on the right (top) or at the same level
 	 */
 	public boolean belongsToLevelFilter(String nivel){
-		LoggerLevels level = LoggerLevels.valueOf(nivel);
-		return (level.getId() >= levelFilter.getId());
+		return (levelFilter.lessThanOrEqual(nivel));
 	}
 
 	/**
