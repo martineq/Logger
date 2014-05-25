@@ -1,4 +1,4 @@
-package com.fiuba.tecnicas.logging.Pattern;
+package com.fiuba.tecnicas.logging.pattern;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;

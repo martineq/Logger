@@ -2,7 +2,7 @@ package com.fiuba.tecnicas.logging;
 
 import org.junit.Test;
 
-import com.fiuba.tecnicas.logging.Pattern.DatePattern;
+import com.fiuba.tecnicas.logging.pattern.DatePattern;
 
 public class DatePatternTest {
 	

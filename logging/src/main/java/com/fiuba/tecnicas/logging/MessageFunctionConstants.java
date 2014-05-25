@@ -3,15 +3,15 @@ package com.fiuba.tecnicas.logging;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.fiuba.tecnicas.logging.Pattern.DatePattern;
-import com.fiuba.tecnicas.logging.Pattern.FilePattern;
-import com.fiuba.tecnicas.logging.Pattern.LevelPattern;
-import com.fiuba.tecnicas.logging.Pattern.LineNumberPattern;
-import com.fiuba.tecnicas.logging.Pattern.MessagePattern;
-import com.fiuba.tecnicas.logging.Pattern.MethodPattern;
-import com.fiuba.tecnicas.logging.Pattern.Pattern;
-import com.fiuba.tecnicas.logging.Pattern.SeparatorPattern;
-import com.fiuba.tecnicas.logging.Pattern.ThreadPattern;
+import com.fiuba.tecnicas.logging.pattern.DatePattern;
+import com.fiuba.tecnicas.logging.pattern.FilePattern;
+import com.fiuba.tecnicas.logging.pattern.LevelPattern;
+import com.fiuba.tecnicas.logging.pattern.LineNumberPattern;
+import com.fiuba.tecnicas.logging.pattern.MessagePattern;
+import com.fiuba.tecnicas.logging.pattern.MethodPattern;
+import com.fiuba.tecnicas.logging.pattern.Pattern;
+import com.fiuba.tecnicas.logging.pattern.SeparatorPattern;
+import com.fiuba.tecnicas.logging.pattern.ThreadPattern;
 
 public class MessageFunctionConstants {
 

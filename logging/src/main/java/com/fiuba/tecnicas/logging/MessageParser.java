@@ -2,7 +2,8 @@ package com.fiuba.tecnicas.logging;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.fiuba.tecnicas.logging.Pattern.Pattern;
+
+import com.fiuba.tecnicas.logging.pattern.Pattern;
 
 
 

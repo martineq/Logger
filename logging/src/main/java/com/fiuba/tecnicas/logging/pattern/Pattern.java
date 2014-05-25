@@ -1,4 +1,4 @@
-package com.fiuba.tecnicas.logging.Pattern;
+package com.fiuba.tecnicas.logging.pattern;
 
 import com.fiuba.tecnicas.logging.Log;
 

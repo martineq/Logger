@@ -1,4 +1,4 @@
-package com.fiuba.tecnicas.logging.Pattern;
+package com.fiuba.tecnicas.logging.pattern;
 
 
 public class ThreadPattern extends Pattern {
