@@ -20,7 +20,7 @@ public class LoggerSettings {
 	final static String FORMAT_DEFAULT_VALUE = "%d{HH:mm:ss} - %p - %m";
 	final static String LOG_PATH_LABEL = "path";
 	final static String CONSOLE_USE_LABEL = "console";
-	final static String TRUE_LABEL = "true";
+	final static String CONSOLE_TRUE_LABEL = "true";
     final static String REGEX_SPACE = "\\s+";
     final static String REGEX_ADD_DEFAULT_SEPARATOR = "|%n";
 
@@ -76,10 +76,11 @@ public class LoggerSettings {
 	/**
 	 * @author Martin Quiroz
 	 * Loads the Properties file and saves the values readed
+	 * On properties file error, loads default values
 	 */
 	public void fileUploadProperties(){
 	    Properties properties = new Properties();
-	    
+
 	    try {
 	      properties.load(new FileInputStream(PROPERTIES_FILE_PATH));
 	    } catch (IOException e) {
@@ -93,7 +94,7 @@ public class LoggerSettings {
         separator = properties.getProperty(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE);
         String level = properties.getProperty(LEVEL_LABEL,LEVEL_DEFAULT_VALUE); 
         levelFilter =  LoggerLevels.valueOf(level);
-        if( !((properties.getProperty(CONSOLE_USE_LABEL,LEVEL_DEFAULT_VALUE)).equals(TRUE_LABEL)) ){
+        if( !((properties.getProperty(CONSOLE_USE_LABEL,CONSOLE_TRUE_LABEL)).equals(CONSOLE_TRUE_LABEL)) ){
         	consoleLogging = false;
         }
         obtainFormats(properties);
@@ -103,7 +104,7 @@ public class LoggerSettings {
     private void obtainFormats(Properties properties){
     	formatList = properties.getProperty(FORMAT_LABEL,FORMAT_DEFAULT_VALUE);
     }
-    
+
     private void obtainPaths(Properties properties){
     	String paths = properties.getProperty(LOG_PATH_LABEL);
     	if(paths != null) filePaths = divideStringWithSeparator(paths);

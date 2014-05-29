@@ -14,11 +14,16 @@ public class Log {
 	LoggerSettings config;
 	private String message;
 	
+	public static void main( String[] args ){
+		
+	}
+	
 	public Log(String message, String level){
 		this.message = message;
 		date = new Date();
 		this.level = level;
 	}
+
 	public Date getDate() {
 		return this.date;
 		
