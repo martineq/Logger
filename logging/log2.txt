@@ -1,2 +1,0 @@
-13:23:46 + INFO + main + hola - fininicion de programa + log1.txt log2.txt  + hola - fin
-13:23:46 + WARN + main + hola - finWarn De Prueba + log1.txt log2.txt  + hola - fin
