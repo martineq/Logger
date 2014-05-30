@@ -45,6 +45,10 @@ public class Logger {
 		return active && configuration.belongsToLevelFilter(nivel);
 	}
 	
+	final public void trace(String mensaje){
+		loggMessage(mensaje,"TRACE");
+	}
+	
 	final public void warn(String mensaje){
 			loggMessage(mensaje,"WARN");
 		

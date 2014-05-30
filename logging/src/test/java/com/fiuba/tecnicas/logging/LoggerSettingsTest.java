@@ -81,6 +81,11 @@ public class LoggerSettingsTest {
 	@Test
 	public void infoDoesNotBelongToLevelFilterWarn() {
 		assertFalse(loggerSettings.belongsToLevelFilter("INFO"));
-	}	
+	}
+	
+	@Test
+	public void traceDoesNotBelongToLevelFilterWarn(){
+		assertFalse(loggerSettings.belongsToLevelFilter("TRACE"));
+	}
 
 }
