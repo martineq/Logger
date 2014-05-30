@@ -29,6 +29,7 @@ public class LoggerSettings {
 	private LoggerLevels levelFilter;
 	private String formatList;
 	private String[] filePaths;
+	private String loggerName;
 	
 	public LoggerSettings(){
 		consoleLogging = true;
@@ -114,5 +115,13 @@ public class LoggerSettings {
     	string = string.replaceAll(REGEX_SPACE,"");
     	return string.split("["+separator+"]"+REGEX_ADD_DEFAULT_SEPARATOR);	
     }
+
+	public String getLoggerName() {
+		return loggerName;
+	}
+	
+	public void setLoggerName(String loggerName) {
+		this.loggerName = loggerName;
+	}
    
 }

@@ -1,73 +1,56 @@
 package com.fiuba.tecnicas.logging;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-
 public class Logger {
 	
-	private static Logger Instance = null;
-	private static boolean active = true;
-	private static LoggerSettings configuration;
+	private boolean active;
+	private LoggerSettings configuration;
+	private String name;
 	
-	private Logger(){
+	
+	public Logger(String loggerName){
+		name = loggerName;
+		active = true;
 		configuration = new LoggerSettings();
-	}
-	public static Logger getInstance(){
-		if (Instance == null) { 
-            Instance = new Logger();
-           Instance.activate();
-        }
-		return Instance;
-		
+		configuration.setLoggerName(loggerName);
 	}
 	
-	/**
-	 * @throws CloneNotSupportedException para que no se pueda clonar el objeto y poder cumplir
-	 * 		 con las condiones del patron Singleton
-	 */
-	public Object clone() throws CloneNotSupportedException {
-    	throw new CloneNotSupportedException(); 
-	}
 	
-	final private void loggMessage(String message, String nivel){
+	private void logMessage(String message, String nivel){
 		if(canLog(nivel)){
 			Log log = new Log(message,nivel);
 			log.setConfig(configuration);
 			log.save();
 		}
 			
-				
-			
-		
 	}
+	
 	private boolean canLog(String nivel) {
 		return active && configuration.belongsToLevelFilter(nivel);
 	}
 	
 	final public void trace(String mensaje){
-		loggMessage(mensaje,"TRACE");
+		logMessage(mensaje,"TRACE");
 	}
 	
 	final public void warn(String mensaje){
-			loggMessage(mensaje,"WARN");
+			logMessage(mensaje,"WARN");
 		
 	}
 	
 	final public void debug(String mensaje){
-		loggMessage(mensaje,"DEBUG");
+		logMessage(mensaje,"DEBUG");
 	}
 	
 	final public void error(String mensaje){
-		loggMessage(mensaje,"ERROR");
+		logMessage(mensaje,"ERROR");
 	}
 	
 	final public void info(String mensaje){
-		loggMessage(mensaje,"INFO");
+		logMessage(mensaje,"INFO");
 	}
 	
 	final public void fatal(String mensaje){
-		loggMessage(mensaje,"FATAL");		
+		logMessage(mensaje,"FATAL");		
 	}
 	
 	final public LoggerSettings getSettings(){
@@ -86,4 +69,7 @@ public class Logger {
 		return active;
 	}
 	
+	public String getName(){
+		return this.name;
+	}
 }

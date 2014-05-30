@@ -7,6 +7,7 @@ import com.fiuba.tecnicas.logging.pattern.DatePattern;
 import com.fiuba.tecnicas.logging.pattern.FilePattern;
 import com.fiuba.tecnicas.logging.pattern.LevelPattern;
 import com.fiuba.tecnicas.logging.pattern.LineNumberPattern;
+import com.fiuba.tecnicas.logging.pattern.LoggerNamePattern;
 import com.fiuba.tecnicas.logging.pattern.MessagePattern;
 import com.fiuba.tecnicas.logging.pattern.MethodPattern;
 import com.fiuba.tecnicas.logging.pattern.Pattern;
@@ -26,6 +27,7 @@ public class MessageFunctionConstants {
 		this.functions.put("L", new LineNumberPattern());
 		this.functions.put("F", new FilePattern());
 		this.functions.put("M", new MethodPattern());
+		this.functions.put("g", new LoggerNamePattern());
 	}
 	
 	public Pattern getFunctionName(String pattern){

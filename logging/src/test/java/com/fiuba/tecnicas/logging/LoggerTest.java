@@ -8,25 +8,36 @@ public class LoggerTest {
 	
 	@Test
 	public void logAWarnTest() {
-		Logger logger = Logger.getInstance();
-		logger.getSettings().fileUploadProperties();
-		logger.activate();
-		logger.warn("Warn De Prueba");
+		LoggerFactory loggerFactory = LoggerFactory.getInstance();
+		Logger unLogger = loggerFactory.getLogger("Logger A");
+		unLogger.getSettings().fileUploadProperties();
+		unLogger.activate();
+		unLogger.warn("Warn De Prueba");
 		
 	}
 	
 	@Test
 	public void IsActivatedShouldReturnTrue() {
-		Logger logger = Logger.getInstance();
-		assertTrue(logger.isActivated());
+		LoggerFactory loggerFactory = LoggerFactory.getInstance();
+		Logger unLogger = loggerFactory.getLogger("Logger A");
+		assertTrue(unLogger.isActivated());
 		
 	}
 	
 	@Test
 	public void thisEnabledThenDisableShouldReturnFalseTest() {
-		Logger logger = Logger.getInstance();
-		logger.deactivate();
-		assertFalse(logger.isActivated());
+		LoggerFactory loggerFactory = LoggerFactory.getInstance();
+		Logger unLogger = loggerFactory.getLogger("Logger A");
+		unLogger.deactivate();
+		assertFalse(unLogger.isActivated());
+		
+	}
+	
+	@Test
+	public void getNameShouldReturnTheLoggerName(){
+		LoggerFactory loggerFactory = LoggerFactory.getInstance();
+		Logger unLogger = loggerFactory.getLogger("Logger B");
+		assertEquals("Logger B",unLogger.getName());
 		
 	}
 	

@@ -14,9 +14,6 @@ public class Log {
 	LoggerSettings config;
 	private String message;
 	
-	public static void main( String[] args ){
-		
-	}
 	
 	public Log(String message, String level){
 		this.message = message;
@@ -96,6 +93,10 @@ public class Log {
 	
 	public String[] getFilePaths(){
 		return this.config.getFilePaths();
+	}
+
+	public Object getLoggerName() {
+		return this.config.getLoggerName();
 	}
 	
 
