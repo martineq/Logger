@@ -1,20 +1,18 @@
 package com.fiuba.tecnicas.logging;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
-
-import com.fiuba.tecnicas.logging.formatter.Formatter;
-import com.fiuba.tecnicas.logging.formatter.UserFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import com.fiuba.tecnicas.logging.formatter.*;
+import com.fiuba.tecnicas.logging.sourceSettings.*;
 
 /**
  * @author Martin Quiroz
  * 
- * Reads and saves the settings Properties file for use by the MessageParser
+ * Reads and saves the settings source file for use by the MessageParser
  */
 public class LoggerSettings {
 	
-	final static String PROPERTIES_FILE_PATH = "config.properties";
+	final static String SOURCE_FILE_NAME = "config";
 	final static String SEPARATOR_LABEL = "separator";
 	final static String SEPARATOR_DEFAULT_VALUE = "-";
 	final static String LEVEL_LABEL = "level";
@@ -26,6 +24,7 @@ public class LoggerSettings {
 	final static String CONSOLE_TRUE_LABEL = "true";
     final static String REGEX_SPACE = "\\s+";
     final static String REGEX_ADD_DEFAULT_SEPARATOR = "|%n";
+    final static String EMPTY_STRING = "";
 
     private boolean consoleLogging;
     private String separator;
@@ -45,7 +44,7 @@ public class LoggerSettings {
 	public String getLevelFilter(){
 		return levelFilter.toString();
 	}
-	
+
 	public String getSeparator(){
 		return separator;
 	}
@@ -79,39 +78,46 @@ public class LoggerSettings {
 
 	/**
 	 * @author Martin Quiroz
-	 * Loads the Properties file and saves the values readed
-	 * On properties file error, loads default values
+	 * Loads the source file and saves the values readed
+	 * On file error, loads default values
 	 */
 	public void fileUploadProperties(){
-	    Properties properties = new Properties();
+		SourceSettings usedSource = new DefaultSource();
+		List<SourceSettings> sourceList = new ArrayList<SourceSettings>();
+		boolean available = false;
+		loadSources(sourceList);
 
-	    try {
-	      properties.load(new FileInputStream(PROPERTIES_FILE_PATH));
-	    } catch (IOException e) {
-	    	System.out.println( "Error de archivo. Se cargan valores por defecto." );
-	    }
-	    
-	   	loadPropertiesValues(properties);
+		for (int i = 0; (!available) && (i < sourceList.size()) ; i++) {
+			sourceList.get(i).load(SOURCE_FILE_NAME);
+			if( available = sourceList.get(i).isAvailable() ) usedSource = sourceList.get(i); 
+		}
+
+		loadPropertiesValues(usedSource);
 	}
 
-    private void loadPropertiesValues(Properties properties){
-        separator = properties.getProperty(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE);
-        String level = properties.getProperty(LEVEL_LABEL,LEVEL_DEFAULT_VALUE); 
+	private void loadSources(List<SourceSettings> sourceList){
+		sourceList.add(new PropertiesSource());
+		sourceList.add(new XmlSource());
+	}
+	
+    private void loadPropertiesValues(SourceSettings source){
+        separator = source.getProperty(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE);
+        String level = source.getProperty(LEVEL_LABEL,LEVEL_DEFAULT_VALUE); 
         levelFilter =  LoggerLevels.valueOf(level);
-        if( !((properties.getProperty(CONSOLE_USE_LABEL,CONSOLE_TRUE_LABEL)).equals(CONSOLE_TRUE_LABEL)) ){
+        if( !((source.getProperty(CONSOLE_USE_LABEL,CONSOLE_TRUE_LABEL)).equals(CONSOLE_TRUE_LABEL)) ){
         	consoleLogging = false;
         }
-        obtainFormats(properties);
-        obtainPaths(properties);
+        obtainFormats(source);
+        obtainPaths(source);
     }
 
-    private void obtainFormats(Properties properties){
-    	formatList = properties.getProperty(FORMAT_LABEL,FORMAT_DEFAULT_VALUE);
+    private void obtainFormats(SourceSettings source){
+    	formatList = source.getProperty(FORMAT_LABEL,FORMAT_DEFAULT_VALUE);
     }
 
-    private void obtainPaths(Properties properties){
-    	String paths = properties.getProperty(LOG_PATH_LABEL);
-    	if(paths != null) filePaths = divideStringWithSeparator(paths);
+    private void obtainPaths(SourceSettings source){
+    	String paths = source.getProperty(LOG_PATH_LABEL,EMPTY_STRING);
+    	if( !(paths.equals(EMPTY_STRING)) ) filePaths = divideStringWithSeparator(paths);
     }
 
     private String[] divideStringWithSeparator(String string){
