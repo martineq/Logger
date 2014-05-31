@@ -11,8 +11,8 @@ public class Log {
 		
 	private Date date;
 	private String level;
-	LoggerSettings config;
-	private String message;
+	protected LoggerSettings config;
+	protected String message;
 	
 	
 	public Log(String message, String level){
@@ -72,7 +72,7 @@ public class Log {
 	 * @return messageToSave, es el mensaje que realmente se debe loggear teniendo en cuenta
 	 * 		   la configuracion del log y el formato del mensaje.
 	 */
-	private String getMessageToSave() {
+	protected String getMessageToSave() {
 		MessageParser messageParser = new MessageParser(config.getFormat());
 		messageParser.setLog(this);
 		String messageToSave = messageParser.getMessage();

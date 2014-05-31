@@ -12,7 +12,27 @@ public class LoggerTest {
 		Logger unLogger = loggerFactory.getLogger("Logger A");
 		unLogger.getSettings().fileUploadProperties();
 		unLogger.activate();
-		unLogger.warn("Warn De Prueba");
+		unLogger.trace("Warn De Prueba");
+		
+	}
+	
+	@Test
+	public void logATraceWithExceptionTest() {
+		LoggerFactory loggerFactory = LoggerFactory.getInstance();
+		Logger unLogger = loggerFactory.getLogger("Logger A");
+		unLogger.getSettings().fileUploadProperties();
+		unLogger.activate();
+		unLogger.trace("Trace De Prueba 2 ",new Exception("Excepcion por un Trace"));
+		
+	}
+	
+	@Test
+	public void logAWarnWithExceptionTest() {
+		LoggerFactory loggerFactory = LoggerFactory.getInstance();
+		Logger unLogger = loggerFactory.getLogger("Logger A");
+		unLogger.getSettings().fileUploadProperties();
+		unLogger.activate();
+		unLogger.warn("Warn De Prueba 2 ",new Exception("Excepcion por un Warn"));
 		
 	}
 	

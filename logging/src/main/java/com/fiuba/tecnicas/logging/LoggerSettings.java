@@ -15,7 +15,7 @@ public class LoggerSettings {
 	final static String SEPARATOR_LABEL = "separator";
 	final static String SEPARATOR_DEFAULT_VALUE = "-";
 	final static String LEVEL_LABEL = "level";
-	final static String LEVEL_DEFAULT_VALUE = "INFO";
+	final static String LEVEL_DEFAULT_VALUE = "TRACE";
 	final static String FORMAT_LABEL = "format";
 	final static String FORMAT_DEFAULT_VALUE = "%d{HH:mm:ss} - %p - %m";
 	final static String LOG_PATH_LABEL = "path";
@@ -71,7 +71,7 @@ public class LoggerSettings {
 	 * Valids if the parameter corresponds to a level on the right (top) or at the same level
 	 */
 	public boolean belongsToLevelFilter(String nivel){
-		return (levelFilter.lessThanOrEqual(nivel));
+		return (levelFilter.lessOrEqualThan(nivel));
 	}
 
 	/**

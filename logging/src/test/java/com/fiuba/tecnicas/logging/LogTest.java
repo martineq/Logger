@@ -44,6 +44,7 @@ public class LogTest {
 		assertEquals("este es un log",log.getMessage());
 	}
 	
+	
 	@Test
 	public void getLevelTest(){
 		Log log = new Log("este es un log","INFO");
