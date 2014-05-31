@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+import com.fiuba.tecnicas.logging.formatter.Formatter;
+import com.fiuba.tecnicas.logging.formatter.UserFormatter;
+
 /**
  * @author Martin Quiroz
  * 
@@ -122,6 +125,10 @@ public class LoggerSettings {
 	
 	public void setLoggerName(String loggerName) {
 		this.loggerName = loggerName;
+	}
+
+	public Formatter getFormatter() {
+		return new UserFormatter(this.getFormat());
 	}
    
 }

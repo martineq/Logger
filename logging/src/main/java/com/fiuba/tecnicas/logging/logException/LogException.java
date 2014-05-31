@@ -1,7 +1,7 @@
 package com.fiuba.tecnicas.logging.logException;
 
 import com.fiuba.tecnicas.logging.Log;
-import com.fiuba.tecnicas.logging.MessageParser;
+import com.fiuba.tecnicas.logging.formatter.UserFormatter;
 
 public class LogException extends Log {
 

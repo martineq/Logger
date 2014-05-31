@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 
 import org.junit.Test;
 
+import com.fiuba.tecnicas.logging.formatter.UserFormatter;
 import com.fiuba.tecnicas.logging.pattern.DatePattern;
 
 public class LoggerNamePatternTest {
@@ -17,8 +18,8 @@ public class LoggerNamePatternTest {
 		LoggerSettings setting = new LoggerSettings();
 		setting.setLoggerName("LoggerA");
 		log.setConfig(setting);
-		MessageParser messageParser = new MessageParser(messageToParse);
-		messageParser.setLog(log);
-		assertEquals("LoggerA",messageParser.getMessage());
+		UserFormatter userFormatter = new UserFormatter(messageToParse);
+		userFormatter.setLog(log);
+		assertEquals("LoggerA",userFormatter.getMessage());
 	}
 }

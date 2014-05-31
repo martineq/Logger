@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import com.fiuba.tecnicas.logging.formatter.Formatter;
+
 
 public class Log {
 
@@ -73,10 +75,15 @@ public class Log {
 	 * 		   la configuracion del log y el formato del mensaje.
 	 */
 	protected String getMessageToSave() {
-		MessageParser messageParser = new MessageParser(config.getFormat());
-		messageParser.setLog(this);
-		String messageToSave = messageParser.getMessage();
+		Formatter formatter = initFormatter();
+		String messageToSave = formatter.getMessage();
 		return messageToSave;
+	}
+
+	private Formatter initFormatter() {
+		Formatter formatter = config.getFormatter();
+		formatter.setLog(this);
+		return formatter;
 	}
 	public void setConfig(LoggerSettings config) {
 		this.config = config;

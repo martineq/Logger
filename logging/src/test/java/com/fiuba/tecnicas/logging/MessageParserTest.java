@@ -7,6 +7,8 @@ import java.util.Date;
 
 import org.junit.Test;
 
+import com.fiuba.tecnicas.logging.formatter.UserFormatter;
+
 
 
 import static org.junit.Assert.assertEquals;
@@ -22,11 +24,11 @@ public class MessageParserTest {
 		Log log = new Log("ojo con el test","WARN");
 		LoggerSettings setting = new LoggerSettings();
 		log.setConfig(setting);
-		MessageParser messageParser = new MessageParser(messageToParse);
-		messageParser.setLog(log);
+		UserFormatter userFormatter = new UserFormatter(messageToParse);
+		userFormatter.setLog(log);
 		Format formatter = new SimpleDateFormat("HH:mm:ss");
 		String dateformated = formatter.format(log.getDate());
-		assertEquals(messageParser.getMessage(), dateformated);
+		assertEquals(userFormatter.getMessage(), dateformated);
     }	
 	
 	@Test
@@ -37,10 +39,10 @@ public class MessageParserTest {
 		Log log = new Log("ojo con el test","WARN");
 		LoggerSettings setting = new LoggerSettings();
 		log.setConfig(setting);
-		MessageParser messageParser = new MessageParser(messageToParse);
-		messageParser.setLog(log);
+		UserFormatter userFormatter = new UserFormatter(messageToParse);
+		userFormatter.setLog(log);
 		
-		assertEquals(messageParser.getMessage(), "WARN");
+		assertEquals(userFormatter.getMessage(), "WARN");
     }	
 	
 	@Test
@@ -50,10 +52,10 @@ public class MessageParserTest {
 		Log log = new Log("ojo con el test","WARN");
 		LoggerSettings setting = new LoggerSettings();
 		log.setConfig(setting);
-		MessageParser messageParser = new MessageParser(messageToParse);
-		messageParser.setLog(log);
+		UserFormatter userFormatter = new UserFormatter(messageToParse);
+		userFormatter.setLog(log);
 		
-		assertEquals(messageParser.getMessage(), "ojo con el test");
+		assertEquals(userFormatter.getMessage(), "ojo con el test");
     }
 	
 	
