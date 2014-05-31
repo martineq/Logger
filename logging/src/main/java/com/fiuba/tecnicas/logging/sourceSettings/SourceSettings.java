@@ -30,6 +30,6 @@ public interface SourceSettings {
 	 * @param defaultValue The default value returned in case of key not found
 	 * @return The value of the corresponding key
 	 */
-	public String getProperty(String key, String defaultValue);
+	public String getValue(String key, String defaultValue);
 
 }

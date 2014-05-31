@@ -67,13 +67,13 @@ public class LoggerSettings {
 	
 	/**
 	 * @author Martin Quiroz
-	 * @param nivel - name of level
+	 * @param level name of level
 	 * @return if corresponds to a level
 	 * 
 	 * Valids if the parameter corresponds to a level on the right (top) or at the same level
 	 */
-	public boolean belongsToLevelFilter(String nivel){
-		return (levelFilter.lessOrEqualThan(nivel));
+	public boolean belongsToLevelFilter(String level){
+		return (levelFilter.lessOrEqualThan(level));
 	}
 
 	/**
@@ -101,10 +101,10 @@ public class LoggerSettings {
 	}
 	
     private void loadPropertiesValues(SourceSettings source){
-        separator = source.getProperty(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE);
-        String level = source.getProperty(LEVEL_LABEL,LEVEL_DEFAULT_VALUE); 
+        separator = source.getValue(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE);
+        String level = source.getValue(LEVEL_LABEL,LEVEL_DEFAULT_VALUE); 
         levelFilter =  LoggerLevels.valueOf(level);
-        if( !((source.getProperty(CONSOLE_USE_LABEL,CONSOLE_TRUE_LABEL)).equals(CONSOLE_TRUE_LABEL)) ){
+        if( !((source.getValue(CONSOLE_USE_LABEL,CONSOLE_TRUE_LABEL)).equals(CONSOLE_TRUE_LABEL)) ){
         	consoleLogging = false;
         }
         obtainFormats(source);
@@ -112,11 +112,11 @@ public class LoggerSettings {
     }
 
     private void obtainFormats(SourceSettings source){
-    	formatList = source.getProperty(FORMAT_LABEL,FORMAT_DEFAULT_VALUE);
+    	formatList = source.getValue(FORMAT_LABEL,FORMAT_DEFAULT_VALUE);
     }
 
     private void obtainPaths(SourceSettings source){
-    	String paths = source.getProperty(LOG_PATH_LABEL,EMPTY_STRING);
+    	String paths = source.getValue(LOG_PATH_LABEL,EMPTY_STRING);
     	if( !(paths.equals(EMPTY_STRING)) ) filePaths = divideStringWithSeparator(paths);
     }
 

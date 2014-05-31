@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.fiuba.tecnicas.logging.sourceSettings;
 
 import java.io.FileInputStream;
@@ -13,6 +10,7 @@ import java.util.Properties;
  */
 public class PropertiesSource implements SourceSettings {
 
+	final static String SOURCE_FILE_EXTENSION = ".properties";
 	Properties properties;
 	private boolean available;
 
@@ -25,7 +23,7 @@ public class PropertiesSource implements SourceSettings {
 		properties = new Properties();
 
 	    try {
-	      properties.load(new FileInputStream(name+".properties"));
+	      properties.load(new FileInputStream(name+SOURCE_FILE_EXTENSION));
 	    } catch (IOException e) {
 	    	available = false;
 	    }
@@ -38,7 +36,7 @@ public class PropertiesSource implements SourceSettings {
 	}
 
 	@Override
-	public String getProperty(String key, String defaultValue) {
+	public String getValue(String key, String defaultValue) {
 		return properties.getProperty(key,defaultValue);
 	}
 

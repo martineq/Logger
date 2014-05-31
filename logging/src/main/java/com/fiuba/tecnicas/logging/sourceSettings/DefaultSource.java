@@ -18,7 +18,7 @@ public class DefaultSource implements SourceSettings {
 	}
 
 	@Override
-	public String getProperty(String key, String defaultValue) {
+	public String getValue(String key, String defaultValue) {
 		return defaultValue;
 	}
 
