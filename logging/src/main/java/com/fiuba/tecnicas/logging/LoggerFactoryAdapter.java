@@ -12,10 +12,21 @@ import com.fiuba.tecnicas.logging.*;
 
 public class LoggerFactoryAdapter implements org.slf4j.ILoggerFactory {
 	
+	
+	 ConcurrentMap<String, org.slf4j.Logger> loggerMap;
+	 
+	 public LoggerFactoryAdapter() {
+		 loggerMap = new ConcurrentHashMap<String, org.slf4j.Logger>();
+	 }
+	  
 	 public org.slf4j.Logger getLogger(String name){
-		 com.fiuba.tecnicas.logging.Logger logger = LoggerFactory.getInstance().getLogger(name);
-		 return new LoggerAdapter(logger);
-		 
+		 org.slf4j.Logger aLoggerSlf4j = loggerMap.get(name);
+		    if (aLoggerSlf4j == null) {
+		      com.fiuba.tecnicas.logging.Logger aLogger = LoggerFactory.getInstance().getLogger(name);
+		      aLoggerSlf4j = new LoggerAdapter(aLogger);
+		      loggerMap.put(name, aLoggerSlf4j);
+		    }
+		    return aLoggerSlf4j;		 
 	 }
 
 

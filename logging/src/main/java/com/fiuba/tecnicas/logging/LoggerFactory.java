@@ -1,10 +1,17 @@
 package com.fiuba.tecnicas.logging;
 
+import java.util.HashMap;
+
+
 public class LoggerFactory {
 	private static LoggerFactory Instance = null;
 	
+	
+	private static HashMap<String, Logger> loggerMap;
+
+	
 	private LoggerFactory(){
-		
+		loggerMap = new HashMap<String, Logger>();
 	}
 	
 	public static LoggerFactory getInstance(){
@@ -16,7 +23,13 @@ public class LoggerFactory {
 	}
 	
 	final public Logger getLogger(String loggerName){
-		return new Logger(loggerName);
+		 Logger aLogger = loggerMap.get(loggerName);
+		    if (aLogger == null) {
+		     aLogger = new Logger(loggerName);
+		     loggerMap.put(loggerName, aLogger);
+		    }
+		
+		return aLogger;
 	}
 	
 	/**
