@@ -3,6 +3,10 @@ package com.fiuba.tecnicas.logging;
 import java.util.ArrayList;
 import java.util.List;
 import com.fiuba.tecnicas.logging.formatter.*;
+import com.fiuba.tecnicas.logging.saver.ConsoleSaver;
+import com.fiuba.tecnicas.logging.saver.FileSaver;
+import com.fiuba.tecnicas.logging.saver.LogSaver;
+import com.fiuba.tecnicas.logging.saver.MultifunctionSaver;
 import com.fiuba.tecnicas.logging.sourceSettings.*;
 
 /**
@@ -32,6 +36,7 @@ public class LoggerSettings {
 	private String formatList;
 	private String[] filePaths;
 	private String loggerName;
+	private String userCustomSave = "";
 	
 	public LoggerSettings(){
 		consoleLogging = true;
@@ -135,6 +140,23 @@ public class LoggerSettings {
 
 	public Formatter getFormatter() {
 		return new UserFormatter(this.getFormat());
+	}
+
+	public LogSaver getSaver() {
+		if(this.userCustomSave != "" ){
+			try {
+				return (LogSaver)Class.forName(this.userCustomSave).newInstance();
+			} catch (Exception e) {
+				return new  ConsoleSaver("User Class Not Found Error");
+			}
+		}
+		if(this.consoleLogEnabled()){
+			return new  ConsoleSaver();
+		}
+		if(this.fileLogEnabled()){
+			return new FileSaver();
+		}
+		return new MultifunctionSaver();
 	}
    
 }

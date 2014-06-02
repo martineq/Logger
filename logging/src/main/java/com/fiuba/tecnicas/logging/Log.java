@@ -31,15 +31,11 @@ public class Log {
 	public String getSeparator(){
 		return this.config.getSeparator();
 	}
+	
 	public String save(){
 		String messageToSave = getMessageToSave();
-		if(this.config.consoleLogEnabled()){
-			showMessage(messageToSave);
-		}
-		if(this.config.fileLogEnabled()){
-			saveInFiles(messageToSave);
-		}
-		return messageToSave;
+		return this.config.getSaver().save(messageToSave);
+		
 	}
 	private void showMessage(String messageToSave) {
 		System.out.println(messageToSave);
