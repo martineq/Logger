@@ -19,6 +19,7 @@ public class MessageParser {
 	private List<Pattern> formattedMessages =  new ArrayList<Pattern>();
 	private MessageFunctionConstants messageFunctions = new MessageFunctionConstants();
 	private Log log;
+	private String filters;
 	
 	/**
 	 * 
@@ -28,6 +29,10 @@ public class MessageParser {
 		//this.date = date != null ? date : new Date();
 		this.message = message;
 		
+	}
+	
+	public void setFilters(String filters){
+		this.filters = filters;
 	}
 	
 	public void setLog(Log log){
@@ -40,7 +45,6 @@ public class MessageParser {
 	 */
 	
 	private void parseMessage(){
-		
 		String[] parts = this.message.split("%");
 		for (String part : parts) 
 			this.savePattern(part);
@@ -72,11 +76,29 @@ public class MessageParser {
 	
 	public String getMessage() {
 		this.parseMessage();
+		this.parseFilters();
 		String message = "";
-		for (Pattern pattern : formattedMessages)
+		for (Pattern pattern : formattedMessages){
 			message += pattern.getMessage();
-		
+			if(pattern.getMessage().equals("")){
+				return "";
+			}
+		}
 		return message;
+	}
+
+	private void parseFilters() {
+		String[] parts = this.filters.split("%");
+		for (String part : parts){
+			Pattern pattern = this.getOption(part);
+			for (Pattern patternInList : formattedMessages){
+				if(patternInList.equals(pattern)){
+					patternInList.addFilter(part);
+				}
+			}
+		}
+			
+		
 	}
 
 }

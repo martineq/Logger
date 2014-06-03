@@ -2,6 +2,7 @@ package com.fiuba.tecnicas.logging;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.fiuba.tecnicas.logging.formatter.*;
 import com.fiuba.tecnicas.logging.saver.ConsoleSaver;
 import com.fiuba.tecnicas.logging.saver.FileSaver;
@@ -37,6 +38,7 @@ public class LoggerSettings {
 	private String[] filePaths;
 	private String loggerName;
 	private String userCustomSave = "";
+	private LoggerFilters filters;
 	
 	public LoggerSettings(){
 		consoleLogging = true;
@@ -44,6 +46,7 @@ public class LoggerSettings {
 		levelFilter = LoggerLevels.valueOf(LEVEL_DEFAULT_VALUE);
 		formatList = FORMAT_DEFAULT_VALUE;
 		filePaths = new String[0];
+		filters = new LoggerFilters();
 	}
 
 	public String getLevelFilter(){
@@ -139,7 +142,9 @@ public class LoggerSettings {
 	}
 
 	public Formatter getFormatter() {
-		return new UserFormatter(this.getFormat());
+		FormatterManager manager = new FormatterManager(this.getFormat());
+		return manager.getFormatter();
+		
 	}
 
 	public LogSaver getSaver() {
@@ -150,13 +155,26 @@ public class LoggerSettings {
 				return new  ConsoleSaver("User Class Not Found Error");
 			}
 		}
-		if(this.consoleLogEnabled()){
-			return new  ConsoleSaver();
+		if(this.consoleLogEnabled() && this.fileLogEnabled()){
+			return new MultifunctionSaver(this);
 		}
 		if(this.fileLogEnabled()){
-			return new FileSaver();
+			return new FileSaver(this);
 		}
-		return new MultifunctionSaver();
+		if(this.consoleLogEnabled()){
+			return new ConsoleSaver(this);
+		}
+		
+		return null;
+		
+	}
+
+	public LoggerFilters getLoggerFilters() {
+		return this.filters;
+	}
+	
+	public void setLoggerFilters(String regexFilter){
+		this.filters.setRegexFilter(regexFilter);
 	}
    
 }

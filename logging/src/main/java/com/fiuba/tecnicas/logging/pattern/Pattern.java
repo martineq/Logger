@@ -6,6 +6,7 @@ public abstract class Pattern {
 	
 	protected Log log;
 	protected String attribute;
+	protected String filter = ".*";
 	public abstract String getMessage();
 	
 	
@@ -20,5 +21,15 @@ public abstract class Pattern {
 	
 	public void setLog(Log log){
 		this.log = log;
+	}
+
+
+	public void addFilter(String filter) {
+		this.filter  = filter.substring(1);
+		
+	}
+	
+	protected String applyFilter(String message) {
+		return message.matches(this.filter) ? message :"" ;
 	}
 }

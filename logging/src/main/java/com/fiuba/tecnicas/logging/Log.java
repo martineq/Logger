@@ -34,34 +34,19 @@ public class Log {
 	
 	public String save(){
 		String messageToSave = getMessageToSave();
-		return this.config.getSaver().save(messageToSave);
-		
+		LoggerFilters filters = this.config.getLoggerFilters();
+		if(filters.matchesTheLoggerFilter(messageToSave)){
+			return this.config.getSaver().save(messageToSave);
+		}
+		return "";
 	}
+	
 	private void showMessage(String messageToSave) {
 		System.out.println(messageToSave);
 	}
 	
 	private void saveInFiles(String messageToSave) {
-		String[] filesName = config.getFilePaths();
-		FileWriter file = null;
-		PrintWriter pw = null;
-		 for(String fileName:filesName){
-			 try{
-				 file = new FileWriter(fileName,true);
-				 pw = new PrintWriter(file);
-				 pw.println(messageToSave); //aca se escribe en el archivo lo que se va a loguear
-			 }catch(IOException e){
-				 e.printStackTrace();
-				
-			 }
-			if(file != null){
-				try{
-					file.close();
-				}catch(IOException e){
-					e.printStackTrace();
-				}
-			}
-		 }
+		
 		
 	}
 	
