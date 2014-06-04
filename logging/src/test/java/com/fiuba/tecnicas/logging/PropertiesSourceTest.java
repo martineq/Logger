@@ -21,6 +21,9 @@ import com.fiuba.tecnicas.logging.sourceSettings.SourceSettings;
  *	level=WARN
  *	path=log1.txt + log2.txt
  *	console=true
+ *  regexFilter=.*INFO.*
+ *  customFilter=%p INFO .*%m Inicio de Programa .*
+ *  customSave=MailAppender
  ********************************************************
  */
 public class PropertiesSourceTest {
@@ -63,4 +66,19 @@ public class PropertiesSourceTest {
 		assertEquals(true,source.isAvailable());
 	}
 
+	@Test
+	public final void testGetRegexFilterValue() {
+		assertEquals(".*INFO.*",source.getValue("regexFilter","otroValor"));
+	}
+	
+	@Test
+	public final void testGetCustomFilterValue() {
+		assertEquals("%p INFO .*%m Inicio de Programa .*",source.getValue("customFilter","otroValor"));
+	}
+	
+	@Test
+	public final void testGetCustomSaveValue() {
+		assertEquals("MailAppender",source.getValue("customSave","otroValor"));
+	}
+	
 }

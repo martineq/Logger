@@ -30,14 +30,16 @@ public class LoggerSettings {
     final static String REGEX_SPACE = "\\s+";
     final static String REGEX_ADD_DEFAULT_SEPARATOR = "|%n";
     final static String EMPTY_STRING = "";
-
+	final static String CUSTOM_SAVE_LABEL = "customSave";
+	final static String REGEX_FILTER_LABEL = "regexFilter";
+    
     private boolean consoleLogging;
     private String separator;
 	private LoggerLevels levelFilter;
 	private String formatList;
 	private String[] filePaths;
 	private String loggerName;
-	private String userCustomSave = "";
+	private String userCustomSave = EMPTY_STRING;
 	private LoggerFilters filters;
 	
 	public LoggerSettings(){
@@ -107,7 +109,7 @@ public class LoggerSettings {
 		sourceList.add(new PropertiesSource());
 		sourceList.add(new XmlSource());
 	}
-	
+
     private void loadPropertiesValues(SourceSettings source){
         separator = source.getValue(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE);
         String level = source.getValue(LEVEL_LABEL,LEVEL_DEFAULT_VALUE); 
@@ -117,6 +119,8 @@ public class LoggerSettings {
         }
         obtainFormats(source);
         obtainPaths(source);
+        userCustomSave = source.getValue(CUSTOM_SAVE_LABEL,EMPTY_STRING);
+        filters.setRegexFilter(source.getValue(REGEX_FILTER_LABEL,EMPTY_STRING));
     }
 
     private void obtainFormats(SourceSettings source){
@@ -129,10 +133,10 @@ public class LoggerSettings {
     }
 
     private String[] divideStringWithSeparator(String string){
-    	string = string.replaceAll(REGEX_SPACE,"");
+    	string = string.replaceAll(REGEX_SPACE,EMPTY_STRING);
     	return string.split("["+separator+"]"+REGEX_ADD_DEFAULT_SEPARATOR);	
     }
-
+    
 	public String getLoggerName() {
 		return loggerName;
 	}
@@ -142,26 +146,26 @@ public class LoggerSettings {
 	}
 
 	public Formatter getFormatter() {
-		FormatterManager manager = new FormatterManager(this.getFormat());
+		FormatterManager manager = new FormatterManager(getFormat());
 		return manager.getFormatter();
 		
 	}
 
 	public LogSaver getSaver() {
-		if(this.userCustomSave != "" ){
+		if(userCustomSave != EMPTY_STRING ){
 			try {
-				return (LogSaver)Class.forName(this.userCustomSave).newInstance();
+				return (LogSaver)Class.forName(userCustomSave).newInstance();
 			} catch (Exception e) {
-				return new  ConsoleSaver("User Class Not Found Error");
+				return new ConsoleSaver("User Class Not Found Error");
 			}
 		}
-		if(this.consoleLogEnabled() && this.fileLogEnabled()){
+		if(consoleLogEnabled() && fileLogEnabled()){
 			return new MultifunctionSaver(this);
 		}
-		if(this.fileLogEnabled()){
+		if(fileLogEnabled()){
 			return new FileSaver(this);
 		}
-		if(this.consoleLogEnabled()){
+		if(consoleLogEnabled()){
 			return new ConsoleSaver(this);
 		}
 		
@@ -170,11 +174,7 @@ public class LoggerSettings {
 	}
 
 	public LoggerFilters getLoggerFilters() {
-		return this.filters;
+		return filters;
 	}
-	
-	public void setLoggerFilters(String regexFilter){
-		this.filters.setRegexFilter(regexFilter);
-	}
-   
+
 }

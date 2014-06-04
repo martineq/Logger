@@ -26,6 +26,7 @@ public class PropertiesSource implements SourceSettings {
 	      properties.load(new FileInputStream(name+SOURCE_FILE_EXTENSION));
 	    } catch (IOException e) {
 	    	available = false;
+	    	System.out.println(e.getMessage());
 	    }
 
 	}

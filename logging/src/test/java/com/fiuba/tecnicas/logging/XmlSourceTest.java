@@ -18,7 +18,10 @@ import com.fiuba.tecnicas.logging.sourceSettings.XmlSource;
  *     <format>%d{HH:mm:ss} + %p + %t %n %m + %F %n hola - fin</format>
  *     <level>WARN</level>
  *     <path>log1.txt + log2.txt</path>
- * 	<console>true</console>
+ * 	   <console>true</console>
+ *     <regexFilter>.*INFO.*</regexFilter>
+ *     <customFilter>%p INFO .*%m Inicio de Programa .*</customFilter>
+ *     <customSave>MailAppender</customSave></settings>
  * </settings>
  ********************************************************
  */
@@ -60,6 +63,21 @@ public class XmlSourceTest {
 	@Test
 	public final void testIsAvailable() {
 		assertEquals(true,source.isAvailable());
+	}
+	
+	@Test
+	public final void testGetRegexFilterValue() {
+		assertEquals(".*INFO.*",source.getValue("regexFilter","otroValor"));
+	}
+	
+	@Test
+	public final void testGetCustomFilterValue() {
+		assertEquals("%p INFO .*%m Inicio de Programa .*",source.getValue("customFilter","otroValor"));
+	}
+	
+	@Test
+	public final void testGetCustomSaveValue() {
+		assertEquals("MailAppender",source.getValue("customSave","otroValor"));
 	}
 
 }
