@@ -30,9 +30,10 @@ public class LoggerSettings {
     final static String REGEX_SPACE = "\\s+";
     final static String REGEX_ADD_DEFAULT_SEPARATOR = "|%n";
     final static String EMPTY_STRING = "";
-	final static String CUSTOM_SAVE_LABEL = "customSave";
 	final static String REGEX_FILTER_LABEL = "regexFilter";
-    
+	final static String CUSTOM_FILTER_LABEL = "customFilter";
+	final static String CUSTOM_SAVE_LABEL = "customSave";
+	
     private boolean consoleLogging;
     private String separator;
 	private LoggerLevels levelFilter;
@@ -99,7 +100,7 @@ public class LoggerSettings {
 
 		for (int i = 0; (!available) && (i < sourceList.size()) ; i++) {
 			sourceList.get(i).load(SOURCE_FILE_NAME);
-			if( available = sourceList.get(i).isAvailable() ) usedSource = sourceList.get(i); 
+			if( available = sourceList.get(i).isAvailable() ){ usedSource = sourceList.get(i);} 
 		}
 
 		loadPropertiesValues(usedSource);
@@ -112,8 +113,7 @@ public class LoggerSettings {
 
     private void loadPropertiesValues(SourceSettings source){
         separator = source.getValue(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE);
-        String level = source.getValue(LEVEL_LABEL,LEVEL_DEFAULT_VALUE); 
-        levelFilter =  LoggerLevels.valueOf(level);
+        obtainLevelFilter(source);
         if( !((source.getValue(CONSOLE_USE_LABEL,CONSOLE_TRUE_LABEL)).equals(CONSOLE_TRUE_LABEL)) ){
         	consoleLogging = false;
         }
@@ -129,9 +129,15 @@ public class LoggerSettings {
 
     private void obtainPaths(SourceSettings source){
     	String paths = source.getValue(LOG_PATH_LABEL,EMPTY_STRING);
-    	if( !(paths.equals(EMPTY_STRING)) ) filePaths = divideStringWithSeparator(paths);
+    	if( !(paths.equals(EMPTY_STRING)) ){ filePaths = divideStringWithSeparator(paths);}
     }
 
+    private void obtainLevelFilter(SourceSettings source){
+    	String level = source.getValue(CUSTOM_FILTER_LABEL,EMPTY_STRING); 
+    	if(level.equals(EMPTY_STRING)){ level = source.getValue(LEVEL_LABEL,LEVEL_DEFAULT_VALUE);} 
+        levelFilter =  LoggerLevels.valueOf(level);
+    }   
+    
     private String[] divideStringWithSeparator(String string){
     	string = string.replaceAll(REGEX_SPACE,EMPTY_STRING);
     	return string.split("["+separator+"]"+REGEX_ADD_DEFAULT_SEPARATOR);	
