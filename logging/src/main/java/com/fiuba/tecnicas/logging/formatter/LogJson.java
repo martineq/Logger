@@ -3,7 +3,12 @@ package com.fiuba.tecnicas.logging.formatter;
 import java.util.Date;
 
 import com.fiuba.tecnicas.logging.Log;
-
+/**
+ * 
+ * Clase que toma los elementos de un log a formatearse en 
+ * formato Json.
+ *
+ */
 public class LogJson {
 
 	private Date datetime;

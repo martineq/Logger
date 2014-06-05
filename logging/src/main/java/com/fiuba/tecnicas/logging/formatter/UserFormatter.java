@@ -13,6 +13,8 @@ import com.fiuba.tecnicas.logging.pattern.Pattern;
 /**
  * 
  * @author damian
+ * Clase que se encarga de manejar el parseo de los formatos 
+ * ingresados por el usuario.
  *
  */
 public class UserFormatter implements Formatter{
@@ -23,7 +25,7 @@ public class UserFormatter implements Formatter{
 	private Log log;
 	
 	/**
-	 * 
+	 * Constructor de la clase
 	 * @param message
 	 */
 	public UserFormatter(String message) {
@@ -67,6 +69,12 @@ public class UserFormatter implements Formatter{
 			
 		
 	}
+	/**
+	 * 
+	 * @param part
+	 * Busca una entidad del tipo Pattern que represente
+	 *  el formato ingresado por el usuario
+	 */
 	private Pattern getOption(String part){
 		return messageFunctions.getFunctionName(String.valueOf(part.charAt(0)));
 	}

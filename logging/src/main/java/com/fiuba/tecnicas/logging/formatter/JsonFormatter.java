@@ -2,7 +2,11 @@ package com.fiuba.tecnicas.logging.formatter;
 
 import com.fiuba.tecnicas.logging.Log;
 import com.google.gson.Gson;
-
+/**
+ * 
+ * Clase que formatea como JSON
+ *
+ */
 public class JsonFormatter implements Formatter {
 
 	private Log log;

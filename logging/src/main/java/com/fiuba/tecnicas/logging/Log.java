@@ -1,8 +1,5 @@
 package com.fiuba.tecnicas.logging;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 
 import com.fiuba.tecnicas.logging.formatter.Formatter;
@@ -39,15 +36,6 @@ public class Log {
 			return this.config.getSaver().save(messageToSave);
 		}
 		return "";
-	}
-	
-	private void showMessage(String messageToSave) {
-		System.out.println(messageToSave);
-	}
-	
-	private void saveInFiles(String messageToSave) {
-		
-		
 	}
 	
 	/**
