@@ -20,7 +20,8 @@ public class Logger {
 	}
 
 	private void initLoggerException() {
-		logger = new LoggerException(name);
+		if(logger == null)
+			logger = new LoggerException(name);
 		logger.setConfiguration(configuration);
 	}
 	
