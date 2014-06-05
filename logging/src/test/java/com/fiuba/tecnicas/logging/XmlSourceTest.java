@@ -72,7 +72,7 @@ public class XmlSourceTest {
 	
 	@Test
 	public final void testGetCustomFilterValue() {
-		assertEquals("%p INFO .*%m Inicio de Programa .*",source.getValue("customFilter","otroValor"));
+		assertEquals("",source.getValue("customFilter",""));
 	}
 	
 	@Test
