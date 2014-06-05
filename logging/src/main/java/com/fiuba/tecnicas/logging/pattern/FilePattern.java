@@ -15,6 +15,11 @@ public class FilePattern  extends Pattern {
 		
 		return this.applyFilter(message);
 	}
+	
+	@Override
+	public boolean equals(Object object){
+		return object instanceof FilePattern;
+	}
 
 	
 

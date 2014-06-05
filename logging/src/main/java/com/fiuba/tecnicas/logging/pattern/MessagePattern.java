@@ -7,7 +7,12 @@ public class MessagePattern extends Pattern{
 	public String getMessage() {
 		String message = this.log.getMessage();
 		message += this.attribute;
-		return message;
+		return this.applyFilter(message);
+	}
+	
+	@Override
+	public boolean equals(Object object){
+		return object instanceof MessagePattern;
 	}
 	
 }

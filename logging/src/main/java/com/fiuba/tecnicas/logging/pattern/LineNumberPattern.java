@@ -8,7 +8,12 @@ public class LineNumberPattern extends Pattern{
 	public String getMessage() {
 		String message = String.valueOf(Thread.currentThread().getStackTrace()[layerCalledLogSave].getLineNumber()); 
 		message += attribute;
-		return message;
+		return this.applyFilter(message);
+	}
+	
+	@Override
+	public boolean equals(Object object){
+		return object instanceof LineNumberPattern;
 	}
 
 

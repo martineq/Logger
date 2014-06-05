@@ -7,7 +7,12 @@ public class ThreadPattern extends Pattern {
 	public String getMessage() {
 		String message = Thread.currentThread().getName();
 		message += this.attribute;
-		return message;
+		return this.applyFilter(message);
+	}
+	
+	@Override
+	public boolean equals(Object object){
+		return object instanceof ThreadPattern;
 	}
 	
 	

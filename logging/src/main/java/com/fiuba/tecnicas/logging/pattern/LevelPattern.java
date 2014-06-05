@@ -9,13 +9,11 @@ public class LevelPattern extends Pattern {
 	public String getMessage() {
 		String message = this.log.getLevel();
 		message += this.attribute;
-		return message;
+		return this.applyFilter(message);
 	}
 	
-	/**
-	 * @see comentario de metodo setAttributes de ThreadPattern, pero en este caso con patron %p
-	 */
-	/*public void setAttributes(String attribute){
-		this.attribute = attribute.substring(1);
-	}*/
+	@Override
+	public boolean equals(Object object){
+		return object instanceof LevelPattern;
+	}
 }

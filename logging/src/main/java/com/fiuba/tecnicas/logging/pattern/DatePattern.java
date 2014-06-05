@@ -23,7 +23,7 @@ public class DatePattern extends Pattern {
 		String message = this.parseAttribute();
 		for(String aMessage: complementsMessages)
 			message += aMessage;
-		return message;
+		return this.applyFilter(message);
 	}
 	
 	public void setLog(Log log){
@@ -52,5 +52,10 @@ public class DatePattern extends Pattern {
 	private String getDateFormat() {
 		String[] result = attribute.split("\\{|\\}");     
 		return result[1];
+	}
+	
+	@Override
+	public boolean equals(Object object){
+		return object instanceof DatePattern;
 	}
 }

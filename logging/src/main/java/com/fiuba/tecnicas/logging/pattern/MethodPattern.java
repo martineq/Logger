@@ -8,7 +8,12 @@ public class MethodPattern extends Pattern {
 	public String getMessage() {
 		String message = Thread.currentThread().getStackTrace()[layerCalledLogSave].getMethodName(); 
 		message += attribute;
-		return message;
+		return this.applyFilter(message);
+	}
+	
+	@Override
+	public boolean equals(Object object){
+		return object instanceof MethodPattern;
 	}
 
 }

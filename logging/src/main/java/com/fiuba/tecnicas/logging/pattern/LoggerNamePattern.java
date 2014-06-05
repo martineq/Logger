@@ -7,7 +7,12 @@ public class LoggerNamePattern extends Pattern {
 		String message = "";
 		message += log.getLoggerName();
 		message += this.attribute;
-		return message;
+		return this.applyFilter(message);
+	}
+	
+	@Override
+	public boolean equals(Object object){
+		return object instanceof LoggerNamePattern;
 	}
 
 }

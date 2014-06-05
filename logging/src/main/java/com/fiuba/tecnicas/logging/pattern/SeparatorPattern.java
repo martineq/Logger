@@ -27,7 +27,12 @@ public class SeparatorPattern extends Pattern{
 		String message = this.log.getSeparator();
 		message += this.attributes.get(0);
 		this.attributes.remove(0);
-		return message;
+		return this.applyFilter(message);
+	}
+	
+	@Override
+	public boolean equals(Object object){
+		return object instanceof SeparatorPattern;
 	}
 
 }
