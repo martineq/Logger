@@ -5,17 +5,13 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.fiuba.tecnicas.logging.ext.MailAppender;
+import com.fiuba.tecnicas.logging.saver.LogSaver;
+
 /**
  * @author Martin Quiroz
  *
- *  config.properties file used:
- ********************************************************
- *	separator=+
- *	format=%d{HH:mm:ss} + %p + %t %n %m + %F %n hola - fin
- *	level=WARN
- *	path=log1.txt + log2.txt
- *	console=true
- ********************************************************
+ *  Based on config file selected (properties)
  */
 public class LoggerSettingsTest {
 
@@ -59,33 +55,48 @@ public class LoggerSettingsTest {
 	}
 
 	@Test
-	public void warnBelongsToLevelFilterWarn() {
+	public void testWarnBelongsToLevelFilterWarn() {
 		assertTrue(loggerSettings.belongsToLevelFilter("WARN"));
 	}
 	
 	@Test
-	public void errorBelongsToLevelFilterWarn() {
+	public void testErrorBelongsToLevelFilterWarn() {
 		assertTrue(loggerSettings.belongsToLevelFilter("ERROR"));
 	}
 	
 	@Test
-	public void fatalBelongsToLevelFilterWarn() {
+	public void testFatalBelongsToLevelFilterWarn() {
 		assertTrue(loggerSettings.belongsToLevelFilter("FATAL"));
 	}
 	
 	@Test
-	public void debugDoesNotBelongToLevelFilterWarn() {
+	public void testDebugDoesNotBelongToLevelFilterWarn() {
 		assertFalse(loggerSettings.belongsToLevelFilter("DEBUG"));
 	}
 	
 	@Test
-	public void infoDoesNotBelongToLevelFilterWarn() {
+	public void testInfoDoesNotBelongToLevelFilterWarn() {
 		assertFalse(loggerSettings.belongsToLevelFilter("INFO"));
 	}
 	
 	@Test
-	public void traceDoesNotBelongToLevelFilterWarn(){
+	public void testTraceDoesNotBelongToLevelFilterWarn(){
 		assertFalse(loggerSettings.belongsToLevelFilter("TRACE"));
 	}
 
+	@Test
+	public void testGetSaverClass(){
+		LogSaver logSaver = loggerSettings.getSaver();
+		MailAppender mailAppender = (MailAppender) logSaver;
+		assertTrue(mailAppender.save("hola").equals("Mail-hola"));
+	}
+	
+	@Test
+	public void testGetSaverArguments(){
+		LogSaver logSaver = loggerSettings.getSaver();
+		MailAppender mailAppender = (MailAppender) logSaver;
+		assertTrue(mailAppender.getArgs().equals("arg_A arg_B"));
+	}
+	
+	
 }

@@ -11,19 +11,7 @@ import com.fiuba.tecnicas.logging.sourceSettings.XmlSource;
 /**
  * @author Martin Quiroz
  *
- *  config.xml file used:
- ********************************************************
- * <settings>
- *     <separator>+</separator>
- *     <format>%d{HH:mm:ss} + %p + %t %n %m + %F %n hola - fin</format>
- *     <level>WARN</level>
- *     <path>log1.txt + log2.txt</path>
- * 	   <console>true</console>
- *     <regexFilter>.*INFO.*</regexFilter>
- *     <customFilter>%p INFO .*%m Inicio de Programa .*</customFilter>
- *     <customSave>MailAppender</customSave></settings>
- * </settings>
- ********************************************************
+ * Based on config.xml file
  */
 public class XmlSourceTest {
 
@@ -72,12 +60,12 @@ public class XmlSourceTest {
 	
 	@Test
 	public final void testGetCustomFilterValue() {
-		assertEquals("",source.getValue("customFilter",""));
+		assertEquals("otroValor",source.getValue("customFilter","otroValor"));
 	}
 	
 	@Test
 	public final void testGetCustomSaveValue() {
-		assertEquals("MailAppender",source.getValue("customSave","otroValor"));
+		assertEquals("com.fiuba.tecnicas.logging.ext.MailAppender + arg_A + arg_B",source.getValue("customSave","otroValor"));
 	}
 
 }

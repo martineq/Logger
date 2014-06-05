@@ -55,7 +55,7 @@ public class XmlSource implements SourceSettings {
 	@Override
 	public String getValue(String key, String defaultValue) {
 		String value = getValueFromElement(key, defaultValue, domElement);
-		if (value.isEmpty()) return defaultValue;
+		if (value.isEmpty()){ return defaultValue;}
 		return value;
 	}
 

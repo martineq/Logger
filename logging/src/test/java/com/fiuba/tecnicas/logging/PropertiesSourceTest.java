@@ -14,17 +14,7 @@ import com.fiuba.tecnicas.logging.sourceSettings.SourceSettings;
 /**
  * @author Martin Quiroz
  *
- *  config.properties file used:
- ********************************************************
- *	separator=+
- *	format=%d{HH:mm:ss} + %p + %t %n %m + %F %n hola - fin
- *	level=WARN
- *	path=log1.txt + log2.txt
- *	console=true
- *  regexFilter=.*INFO.*
- *  customFilter=%p INFO .*%m Inicio de Programa .*
- *  customSave=MailAppender
- ********************************************************
+ *  Based on config.properties file
  */
 public class PropertiesSourceTest {
 
@@ -73,12 +63,12 @@ public class PropertiesSourceTest {
 	
 	@Test
 	public final void testGetCustomFilterValue() {
-		assertEquals("",source.getValue("customFilter","otroValor"));
+		assertEquals("otroValor",source.getValue("customFilter","otroValor"));
 	}
 	
 	@Test
 	public final void testGetCustomSaveValue() {
-		assertEquals("MailAppender",source.getValue("customSave","otroValor"));
+		assertEquals("com.fiuba.tecnicas.logging.ext.MailAppender + arg_A + arg_B",source.getValue("customSave","otroValor"));
 	}
 	
 }

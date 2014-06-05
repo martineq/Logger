@@ -38,7 +38,9 @@ public class PropertiesSource implements SourceSettings {
 
 	@Override
 	public String getValue(String key, String defaultValue) {
-		return properties.getProperty(key,defaultValue);
+		String value = properties.getProperty(key,defaultValue);
+		if (value.isEmpty()){ return defaultValue;}
+		return value;
 	}
 
 }

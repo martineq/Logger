@@ -1,5 +1,6 @@
 package com.fiuba.tecnicas.logging;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,12 +28,15 @@ public class LoggerSettings {
 	final static String LOG_PATH_LABEL = "path";
 	final static String CONSOLE_USE_LABEL = "console";
 	final static String CONSOLE_TRUE_LABEL = "true";
-    final static String REGEX_SPACE = "\\s+";
+	final static String REGEX_SPACE = "\\s+";
     final static String REGEX_ADD_DEFAULT_SEPARATOR = "|%n";
     final static String EMPTY_STRING = "";
+    final static String SPACE_STRING = " ";
 	final static String REGEX_FILTER_LABEL = "regexFilter";
 	final static String CUSTOM_FILTER_LABEL = "customFilter";
 	final static String CUSTOM_SAVE_LABEL = "customSave";
+	final static int SPLIT_ALL = 0;
+	final static int SPLIT_IN_TWO = 2;
 	
     private boolean consoleLogging;
     private String separator;
@@ -40,7 +44,8 @@ public class LoggerSettings {
 	private String formatList;
 	private String[] filePaths;
 	private String loggerName;
-	private String userCustomSave = EMPTY_STRING;
+	private String userCustomSave;
+	private String userCustomSaveArgs;
 	private LoggerFilters filters;
 	
 	public LoggerSettings(){
@@ -50,6 +55,8 @@ public class LoggerSettings {
 		formatList = FORMAT_DEFAULT_VALUE;
 		filePaths = new String[0];
 		filters = new LoggerFilters();
+		userCustomSave = EMPTY_STRING;
+		userCustomSaveArgs = EMPTY_STRING;
 	}
 
 	public String getLevelFilter(){
@@ -119,17 +126,28 @@ public class LoggerSettings {
         }
         obtainFormats(source);
         obtainPaths(source);
-        userCustomSave = source.getValue(CUSTOM_SAVE_LABEL,EMPTY_STRING);
+        obtainUserCustomSaveAndArgs(source);
         filters.setRegexFilter(source.getValue(REGEX_FILTER_LABEL,EMPTY_STRING));
     }
 
+    private void obtainUserCustomSaveAndArgs(SourceSettings source){
+    	String string = source.getValue(CUSTOM_SAVE_LABEL,EMPTY_STRING);
+    	if (!string.equals(EMPTY_STRING)){
+        	String[] splitString = divideStringWithSeparator(string,SPLIT_IN_TWO);
+        	userCustomSave = splitString[0];
+        	if(splitString.length > 1){
+        		userCustomSaveArgs = splitString[1].replaceAll("["+separator+"]"+REGEX_ADD_DEFAULT_SEPARATOR,SPACE_STRING);	
+        	}
+    	}
+    }
+    
     private void obtainFormats(SourceSettings source){
     	formatList = source.getValue(FORMAT_LABEL,FORMAT_DEFAULT_VALUE);
     }
 
     private void obtainPaths(SourceSettings source){
     	String paths = source.getValue(LOG_PATH_LABEL,EMPTY_STRING);
-    	if( !(paths.equals(EMPTY_STRING)) ){ filePaths = divideStringWithSeparator(paths);}
+    	if( !(paths.equals(EMPTY_STRING)) ){ filePaths = divideStringWithSeparator(paths,SPLIT_ALL);}
     }
 
     private void obtainLevelFilter(SourceSettings source){
@@ -138,9 +156,10 @@ public class LoggerSettings {
         levelFilter =  LoggerLevels.valueOf(level);
     }   
     
-    private String[] divideStringWithSeparator(String string){
+    private String[] divideStringWithSeparator(String string, int numberOfSplits){
     	string = string.replaceAll(REGEX_SPACE,EMPTY_STRING);
-    	return string.split("["+separator+"]"+REGEX_ADD_DEFAULT_SEPARATOR);	
+       	return string.split("["+separator+"]"+REGEX_ADD_DEFAULT_SEPARATOR,numberOfSplits);
+    	
     }
     
 	public String getLoggerName() {
@@ -154,14 +173,15 @@ public class LoggerSettings {
 	public Formatter getFormatter() {
 		FormatterManager manager = new FormatterManager(getFormat());
 		return manager.getFormatter();
-		
 	}
 
 	public LogSaver getSaver() {
 		if(userCustomSave != EMPTY_STRING ){
 			try {
-				return (LogSaver)Class.forName(userCustomSave).newInstance();
+				Constructor<?> constructor = Class.forName(userCustomSave).getConstructor(String.class);
+				return (LogSaver) constructor.newInstance(userCustomSaveArgs);
 			} catch (Exception e) {
+				System.out.println(e.getMessage());
 				return new ConsoleSaver("User Class Not Found Error");
 			}
 		}

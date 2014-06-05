@@ -27,7 +27,7 @@ public interface SourceSettings {
 	 * Loads the value of a property
 	 *
 	 * @param key The name of the key wanted
-	 * @param defaultValue The default value returned in case of key not found
+	 * @param defaultValue The default value returned in case of key or value not found
 	 * @return The value of the corresponding key
 	 */
 	public String getValue(String key, String defaultValue);
