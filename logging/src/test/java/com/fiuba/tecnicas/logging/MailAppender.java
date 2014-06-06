@@ -1,4 +1,4 @@
-package com.fiuba.tecnicas.logging.ext;
+package com.fiuba.tecnicas.logging;
 
 import com.fiuba.tecnicas.logging.saver.LogSaver;
 

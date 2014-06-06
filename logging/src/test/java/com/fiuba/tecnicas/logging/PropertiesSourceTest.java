@@ -68,7 +68,7 @@ public class PropertiesSourceTest {
 	
 	@Test
 	public final void testGetCustomSaveValue() {
-		assertEquals("com.fiuba.tecnicas.logging.ext.MailAppender + arg_A + arg_B",source.getValue("customSave","otroValor"));
+		assertEquals("com.fiuba.tecnicas.logging.MailAppender + arg_A + arg_B",source.getValue("customSave","otroValor"));
 	}
 	
 }
