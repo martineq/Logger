@@ -22,7 +22,9 @@ public class ConsoleSaver extends LogSaver {
 		if(error!=null){
 			System.out.println(error);
 		}
-		System.out.println(messageToSave);
+		if(!messageToSave.equals("")){
+			System.out.println(messageToSave);
+		}
 		return messageToSave;
 	}
 

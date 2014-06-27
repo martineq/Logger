@@ -43,4 +43,10 @@ public class PropertiesSource implements SourceSettings {
 		return value;
 	}
 
+	@Override
+	public String getValue(String key, String defaultValue, String loggerName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import com.fiuba.tecnicas.logging.Log;
 import com.fiuba.tecnicas.logging.MessageFunctionConstants;
 import com.fiuba.tecnicas.logging.pattern.Pattern;
+import com.fiuba.tecnicas.logging.pattern.PorcentajePattern;
 
 
 
@@ -23,6 +24,7 @@ public class UserFormatter implements Formatter{
 	private List<Pattern> formattedMessages =  new ArrayList<Pattern>();
 	private MessageFunctionConstants messageFunctions = new MessageFunctionConstants();
 	private Log log;
+	private String customFilters;
 	
 	/**
 	 * Constructor de la clase
@@ -45,8 +47,9 @@ public class UserFormatter implements Formatter{
 	private void parseMessage(){
 		
 		String[] parts = this.format.split("%");
-		for (String part : parts) 
+		for (String part : parts){ 
 			this.savePattern(part);
+		}
 	}
 
 	private boolean isPercentSymbol(String part ){
@@ -62,9 +65,14 @@ public class UserFormatter implements Formatter{
 	private void savePattern(String part) {
 		if(!this.isPercentSymbol(part)){
 			Pattern pattern = this.getOption(part);
+			if(pattern == null){
+				return; //No hay nada asociado a ese pattern
+			}
 			pattern.setAttributes(part);
 			pattern.setLog(log);
 			formattedMessages.add(pattern);
+		}else{
+			formattedMessages.add(new PorcentajePattern());
 		}
 			
 		
@@ -81,11 +89,40 @@ public class UserFormatter implements Formatter{
 	
 	public String getMessage() {
 		this.parseMessage();
+		this.parseFilters();
 		String message = "";
-		for (Pattern pattern : formattedMessages)
-			message += pattern.getMessage();
+		for (Pattern pattern : formattedMessages){
+			String messageToAppend = pattern.getMessage();
+			if(messageToAppend.equals("")){
+				return "";
+			}
+			message += messageToAppend;
+		}
+			
 		
 		return message;
+	}
+
+	@Override
+	public void setCustomFilters(String customFilters) {
+		this.customFilters = customFilters;
+		
+	}
+	
+	private void parseFilters() {
+		String[] parts = this.customFilters.split("%");
+		for (String part : parts){
+			if(!this.isPercentSymbol(part)){
+				Pattern pattern = this.getOption(part);
+				for (Pattern patternInList : formattedMessages){
+					if(patternInList.equals(pattern)){
+						patternInList.addFilter(part);
+					}
+				}
+			}	
+		}
+			
+		
 	}
 
 }

@@ -25,22 +25,22 @@ public class XmlSourceTest {
 
 	@Test
 	public final void testGetSeparatorValue() {
-		assertEquals("+",source.getValue("separator","otroValor"));
+		assertEquals("-",source.getValue("separator","otroValor"));
 	}
 
 	@Test
 	public final void testGetFormatValue() {
-		assertEquals("%d{HH:mm:ss} + %p + %t %n %m + %F %n hola - fin",source.getValue("format","otroValor"));
+		assertEquals("%d{dd-MM-YYYY hh:mm:ss.SSS} - [%p] - [%g] %t %F %L %%- %m %n",source.getValue("format","otroValor"));
 	}
 
 	@Test
 	public final void testGetLevelValue() {
-		assertEquals("WARN",source.getValue("level","otroValor"));
+		assertEquals("INFO",source.getValue("level","otroValor"));
 	}
 
 	@Test
 	public final void testGetPathValue() {
-		assertEquals("log1.txt + log2.txt",source.getValue("path","otroValor"));
+		assertEquals("log1.txt",source.getValue("path","otroValor"));
 	}
 
 	@Test

@@ -65,4 +65,29 @@ public class XmlSource implements SourceSettings {
 	    else return defaultValue;
 	}
 	
+	@Override
+	public String getValue(String key, String defaultValue,String loggerName) {
+		String value = defaultValue;
+		boolean found = false;
+		NodeList node = domElement.getElementsByTagName(loggerName);
+		
+		node = node.item(0).getChildNodes();
+		
+		if (node.getLength() > 0) {
+			for(int i=0 ; i<node.getLength() ; i++){
+		    	
+				//System.out.println("name"+i+node.item(i).getNodeName());
+				//System.out.println("valor"+i+node.item(i).getTextContent());
+				
+				if(node.item(i).getNodeName().equals(key)){
+					if( node.item(i).getTextContent().isEmpty() == false){					
+						value = node.item(i).getTextContent();	
+					}			
+				}	
+		    }			
+		}
+		
+	    return value;
+	}
+	
 }

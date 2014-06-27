@@ -17,6 +17,8 @@ public class Logger {
 		active = true;
 		configuration = new LoggerSettings();
 		configuration.setLoggerName(loggerName);
+		this.getSettings().fileUploadProperties();
+		this.activate();
 	}
 
 	private void initLoggerException() {

@@ -46,7 +46,9 @@ public class LoggerSettings {
 	private String loggerName;
 	private String userCustomSave;
 	private String userCustomSaveArgs;
+	private String userCustomFilters;
 	private LoggerFilters filters;
+	private String name;
 	
 	public LoggerSettings(){
 		consoleLogging = true;
@@ -59,6 +61,10 @@ public class LoggerSettings {
 		userCustomSaveArgs = EMPTY_STRING;
 	}
 
+	public void setName(String name){
+		this.name=name;
+	}
+	
 	public String getLevelFilter(){
 		return levelFilter.toString();
 	}
@@ -77,6 +83,10 @@ public class LoggerSettings {
 	
     public String getFormat(){
     	return formatList;
+    }
+    
+    public String getCustomFilters(){
+    	return userCustomFilters;
     }
     
     public boolean fileLogEnabled(){
@@ -119,19 +129,21 @@ public class LoggerSettings {
 	}
 
     private void loadPropertiesValues(SourceSettings source){
-        separator = source.getValue(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE);
+    	//name = source.getValue("name",EMPTY_STRING, name);
+        separator = source.getValue(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE, loggerName);
         obtainLevelFilter(source);
-        if( !((source.getValue(CONSOLE_USE_LABEL,CONSOLE_TRUE_LABEL)).equals(CONSOLE_TRUE_LABEL)) ){
+        if( !((source.getValue(CONSOLE_USE_LABEL,CONSOLE_TRUE_LABEL, loggerName)).equals(CONSOLE_TRUE_LABEL)) ){
         	consoleLogging = false;
         }
         obtainFormats(source);
         obtainPaths(source);
         obtainUserCustomSaveAndArgs(source);
-        filters.setRegexFilter(source.getValue(REGEX_FILTER_LABEL,EMPTY_STRING));
+        filters.setRegexFilter(source.getValue(REGEX_FILTER_LABEL,EMPTY_STRING, loggerName));
+        userCustomFilters = source.getValue(CUSTOM_FILTER_LABEL,EMPTY_STRING, loggerName);
     }
 
     private void obtainUserCustomSaveAndArgs(SourceSettings source){
-    	String string = source.getValue(CUSTOM_SAVE_LABEL,EMPTY_STRING);
+    	String string = source.getValue(CUSTOM_SAVE_LABEL,EMPTY_STRING, loggerName);
     	if (!string.equals(EMPTY_STRING)){
         	String[] splitString = divideStringWithSeparator(string,SPLIT_IN_TWO);
         	userCustomSave = splitString[0];
@@ -142,17 +154,26 @@ public class LoggerSettings {
     }
     
     private void obtainFormats(SourceSettings source){
-    	formatList = source.getValue(FORMAT_LABEL,FORMAT_DEFAULT_VALUE);
+    	formatList = source.getValue(FORMAT_LABEL,FORMAT_DEFAULT_VALUE, loggerName);
     }
 
     private void obtainPaths(SourceSettings source){
-    	String paths = source.getValue(LOG_PATH_LABEL,EMPTY_STRING);
+    	String paths = source.getValue(LOG_PATH_LABEL,EMPTY_STRING, loggerName);
     	if( !(paths.equals(EMPTY_STRING)) ){ filePaths = divideStringWithSeparator(paths,SPLIT_ALL);}
     }
-
+    
+    private void obtainCustomFilter(SourceSettings source){
+    	String level = source.getValue(CUSTOM_FILTER_LABEL,EMPTY_STRING, loggerName); 
+    	if(level.equals(EMPTY_STRING)){
+    		level = source.getValue(LEVEL_LABEL,LEVEL_DEFAULT_VALUE, loggerName);
+    	} 
+        levelFilter =  LoggerLevels.valueOf(level);
+    }
     private void obtainLevelFilter(SourceSettings source){
-    	String level = source.getValue(CUSTOM_FILTER_LABEL,EMPTY_STRING); 
-    	if(level.equals(EMPTY_STRING)){ level = source.getValue(LEVEL_LABEL,LEVEL_DEFAULT_VALUE);} 
+    	String level = source.getValue(LEVEL_LABEL,EMPTY_STRING, loggerName); 
+    	if(level.equals(EMPTY_STRING)){
+    		level = source.getValue(LEVEL_LABEL,LEVEL_DEFAULT_VALUE, loggerName);
+    	} 
         levelFilter =  LoggerLevels.valueOf(level);
     }   
     
@@ -172,7 +193,9 @@ public class LoggerSettings {
 
 	public Formatter getFormatter() {
 		FormatterManager manager = new FormatterManager(getFormat());
-		return manager.getFormatter();
+		Formatter formatter = manager.getFormatter();
+		formatter.setCustomFilters(userCustomFilters);
+		return formatter;
 	}
 
 	public LogSaver getSaver() {

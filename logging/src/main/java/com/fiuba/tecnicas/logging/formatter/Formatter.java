@@ -7,6 +7,8 @@ public interface Formatter {
 	void setLog(Log log);
 
 	String getMessage();
+	
+	void setCustomFilters(String customFilters);
 
 
 }

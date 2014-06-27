@@ -6,9 +6,10 @@ public class LineNumberPattern extends Pattern{
 	
 	@Override
 	public String getMessage() {
-		String message = String.valueOf(Thread.currentThread().getStackTrace()[layerCalledLogSave].getLineNumber()); 
-		message += attribute;
-		return this.applyFilter(message);
+		int level = Thread.currentThread().getStackTrace().length -1 ;
+		String message = String.valueOf(Thread.currentThread().getStackTrace()[level].getLineNumber()); 
+		String result = this.applyFilter(message);
+		return result.equals("") ? "" :message + attribute;
 	}
 	
 	@Override

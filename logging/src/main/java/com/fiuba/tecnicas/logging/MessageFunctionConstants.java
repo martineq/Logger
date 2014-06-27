@@ -11,6 +11,7 @@ import com.fiuba.tecnicas.logging.pattern.LoggerNamePattern;
 import com.fiuba.tecnicas.logging.pattern.MessagePattern;
 import com.fiuba.tecnicas.logging.pattern.MethodPattern;
 import com.fiuba.tecnicas.logging.pattern.Pattern;
+import com.fiuba.tecnicas.logging.pattern.PorcentajePattern;
 import com.fiuba.tecnicas.logging.pattern.SeparatorPattern;
 import com.fiuba.tecnicas.logging.pattern.ThreadPattern;
 
