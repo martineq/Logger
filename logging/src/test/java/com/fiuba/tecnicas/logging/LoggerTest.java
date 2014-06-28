@@ -9,8 +9,8 @@ public class LoggerTest {
 	@Test
 	public void logAWarnTest() {
 		LoggerFactory loggerFactory = LoggerFactory.getInstance();
-		Logger unLogger = loggerFactory.getLogger("Logger A");
-		unLogger.getSettings().fileUploadProperties();
+		Logger unLogger = loggerFactory.getLogger("LoggerTest");
+		unLogger.getSettings().fileUploadProperties("LoggerTest");
 		unLogger.activate();
 		unLogger.trace("Warn De Prueba");
 		
@@ -19,8 +19,8 @@ public class LoggerTest {
 	@Test
 	public void logATraceWithExceptionTest() {
 		LoggerFactory loggerFactory = LoggerFactory.getInstance();
-		Logger unLogger = loggerFactory.getLogger("Logger A");
-		unLogger.getSettings().fileUploadProperties();
+		Logger unLogger = loggerFactory.getLogger("LoggerTest");
+		unLogger.getSettings().fileUploadProperties("LoggerTest");
 		unLogger.activate();
 		unLogger.trace("Trace De Prueba 2 ",new Exception("Excepcion por un Trace"));
 		
@@ -29,8 +29,8 @@ public class LoggerTest {
 	@Test
 	public void logAWarnWithExceptionTest() {
 		LoggerFactory loggerFactory = LoggerFactory.getInstance();
-		Logger unLogger = loggerFactory.getLogger("Logger A");
-		unLogger.getSettings().fileUploadProperties();
+		Logger unLogger = loggerFactory.getLogger("LoggerTest");
+		unLogger.getSettings().fileUploadProperties("LoggerTest");
 		unLogger.activate();
 		unLogger.warn("Warn De Prueba 2 ",new Exception("Excepcion por un Warn"));
 		
@@ -39,7 +39,7 @@ public class LoggerTest {
 	@Test
 	public void IsActivatedShouldReturnTrue() {
 		LoggerFactory loggerFactory = LoggerFactory.getInstance();
-		Logger unLogger = loggerFactory.getLogger("Logger A");
+		Logger unLogger = loggerFactory.getLogger("LoggerTest");
 		assertTrue(unLogger.isActivated());
 		
 	}
@@ -47,7 +47,7 @@ public class LoggerTest {
 	@Test
 	public void thisEnabledThenDisableShouldReturnFalseTest() {
 		LoggerFactory loggerFactory = LoggerFactory.getInstance();
-		Logger unLogger = loggerFactory.getLogger("Logger A");
+		Logger unLogger = loggerFactory.getLogger("LoggerTest");
 		unLogger.deactivate();
 		assertFalse(unLogger.isActivated());
 		

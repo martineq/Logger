@@ -1,29 +1,38 @@
 <settings>
-
-<Logger1>
-    <format> %d{dd-MM-YYYY hh:mm:ss.SSS} - [%p] - [%g] %t %F %L %%  - %m %n</format>
-    <level>INFO</level>
-	<console>true</console>
-	<regexFilter>.*</regexFilter>
-	<customFilter>%L.*1|.*3|.*5|.*7|.*9</customFilter>
-	<separator>-</separator>
-</Logger1>
-<Logger2>
-    <format> ES el 2%d{dd-MM-YYYY hh:mm:ss.SSS} - [%p] - [%g] %t %F %L %%  - %m %n</format>
-    <level>DEBUG</level>
-	<console>true</console>
-	<regexFilter>.*</regexFilter>
-	<customFilter>%m.*tp.*%pDEBUG</customFilter>
-	<customSave>com.fiuba.tecnicas.logging.MailAppender + arg_A + arg_B</customSave>
-	<separator>-</separator>
-</Logger2>
-<Logger3>
-    <format>JSON</format>
-    <level>TRACE</level>
-    <path>log1.txt</path>
-	<console>false</console>
-	<regexFilter>.*</regexFilter>
-	<customFilter>%pWARN</customFilter>
-	<separator>-</separator>
-</Logger3>
+	<Logger1>
+		<format> %d{dd-MM-YYYY hh:mm:ss.SSS} - [%p] - [%g] %t %F %L %%  - %m %n</format>
+		<level>INFO</level>
+		<console>true</console>
+		<regexFilter>.*</regexFilter>
+		<customFilter>%L.*1|.*3|.*5|.*7|.*9</customFilter>
+		<separator>-</separator>
+	</Logger1>
+	<Logger2>
+		<format> ES el 2%d{dd-MM-YYYY hh:mm:ss.SSS} - [%p] - [%g] %t %F %L %%  - %m %n</format>
+		<level>DEBUG</level>
+		<console>true</console>
+		<regexFilter>.*</regexFilter>
+		<customFilter>%m.*tp.*%pDEBUG</customFilter>
+		<customSave>com.fiuba.tecnicas.logging.MailAppender + arg_A + arg_B</customSave>
+		<separator>-</separator>
+	</Logger2>
+	<Logger3>
+		<format>JSON</format>
+		<level>TRACE</level>
+		<path>log1.txt</path>
+		<console>false</console>
+		<regexFilter>.*</regexFilter>
+		<customFilter>%pWARN</customFilter>
+		<separator>-</separator>
+	</Logger3>
+	<LoggerTest>
+		<format>%d{HH:mm:ss} + %p + %t %n %m + %F %n hola - fin</format>
+		<level>WARN</level>
+		<path>log1.txt + log2.txt</path>
+		<console>true</console>
+		<regexFilter>.*INFO.*</regexFilter>
+		<customFilter>%m</customFilter>
+		<customSave>com.fiuba.tecnicas.logging.MailAppender + arg_A + arg_B</customSave>
+		<separator>+</separator>
+	</LoggerTest>
 </settings>

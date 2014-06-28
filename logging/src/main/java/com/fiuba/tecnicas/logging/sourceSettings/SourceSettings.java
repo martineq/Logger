@@ -28,12 +28,9 @@ public interface SourceSettings {
 	 *
 	 * @param key The name of the key wanted
 	 * @param defaultValue The default value returned in case of key or value not found
+	 * @param loggerName The name of the logger wanted
 	 * @return The value of the corresponding key
 	 */
-	//public String getValue(String key, String defaultValue);
-
 	public String getValue(String key, String defaultValue, String loggerName);
-
-	String getValue(String key, String defaultValue);
 
 }

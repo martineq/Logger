@@ -52,23 +52,23 @@ public class XmlSource implements SourceSettings {
 		return available;
 	}
 	
-	@Override
-	public String getValue(String key, String defaultValue) {
-		String value = getValueFromElement(key, defaultValue, domElement);
-		if (value.isEmpty()){ return defaultValue;}
-		return value;
-	}
-
-	private String getValueFromElement(String tag, String defaultValue, Element doc) {
-	    NodeList node = doc.getElementsByTagName(tag);
-	    if (node.getLength() > 0 && node.item(0).hasChildNodes()) return node.item(0).getFirstChild().getNodeValue();
-	    else return defaultValue;
-	}
-	
+	// TODO: Confirmar y borrar definitivamente
+//	@Override
+//	public String getValue(String key, String defaultValue) {
+//		String value = getValueFromElement(key, defaultValue, domElement);
+//		if (value.isEmpty()){ return defaultValue;}
+//		return value;
+//	}
+//
+//	private String getValueFromElement(String tag, String defaultValue, Element doc) {
+//	    NodeList node = doc.getElementsByTagName(tag);
+//	    if (node.getLength() > 0 && node.item(0).hasChildNodes()) return node.item(0).getFirstChild().getNodeValue();
+//	    else return defaultValue;
+//	}
+//	
 	@Override
 	public String getValue(String key, String defaultValue,String loggerName) {
 		String value = defaultValue;
-		boolean found = false;
 		NodeList node = domElement.getElementsByTagName(loggerName);
 		
 		node = node.item(0).getChildNodes();

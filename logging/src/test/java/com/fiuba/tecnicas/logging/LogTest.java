@@ -27,7 +27,7 @@ public class LogTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws IOException{
 		loggerSettings = new LoggerSettings();
-		loggerSettings.fileUploadProperties();
+		loggerSettings.fileUploadProperties("LoggerTest");
 		String[] files = loggerSettings.getFilePaths();
 		BufferedWriter bw = null;
 		for(String fileName:files){

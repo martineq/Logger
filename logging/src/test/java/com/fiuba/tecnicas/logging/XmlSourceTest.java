@@ -11,7 +11,7 @@ import com.fiuba.tecnicas.logging.sourceSettings.XmlSource;
 /**
  * @author Martin Quiroz
  *
- * Based on config.xml file
+ * Based on config.xml file, "LoggerTest" configuration.
  */
 public class XmlSourceTest {
 
@@ -25,27 +25,27 @@ public class XmlSourceTest {
 
 	@Test
 	public final void testGetSeparatorValue() {
-		assertEquals("-",source.getValue("separator","otroValor"));
+		assertEquals("+",source.getValue("separator","otroValor","LoggerTest"));
 	}
 
 	@Test
 	public final void testGetFormatValue() {
-		assertEquals("%d{dd-MM-YYYY hh:mm:ss.SSS} - [%p] - [%g] %t %F %L %%- %m %n",source.getValue("format","otroValor"));
+		assertEquals("%d{HH:mm:ss} + %p + %t %n %m + %F %n hola - fin",source.getValue("format","otroValor","LoggerTest"));
 	}
 
 	@Test
 	public final void testGetLevelValue() {
-		assertEquals("INFO",source.getValue("level","otroValor"));
+		assertEquals("WARN",source.getValue("level","otroValor","LoggerTest"));
 	}
 
 	@Test
 	public final void testGetPathValue() {
-		assertEquals("log1.txt",source.getValue("path","otroValor"));
+		assertEquals("log1.txt + log2.txt",source.getValue("path","otroValor","LoggerTest"));
 	}
 
 	@Test
 	public final void testGetConsoleValue() {
-		assertEquals("true",source.getValue("console","otroValor"));
+		assertEquals("true",source.getValue("console","otroValor","LoggerTest"));
 	}
 
 	@Test
@@ -55,17 +55,17 @@ public class XmlSourceTest {
 	
 	@Test
 	public final void testGetRegexFilterValue() {
-		assertEquals(".*INFO.*",source.getValue("regexFilter","otroValor"));
+		assertEquals(".*INFO.*",source.getValue("regexFilter","otroValor","LoggerTest"));
 	}
 	
 	@Test
 	public final void testGetCustomFilterValue() {
-		assertEquals("otroValor",source.getValue("customFilter","otroValor"));
+		assertEquals("%m",source.getValue("customFilter","otroValor","LoggerTest"));
 	}
 	
 	@Test
 	public final void testGetCustomSaveValue() {
-		assertEquals("com.fiuba.tecnicas.logging.MailAppender + arg_A + arg_B",source.getValue("customSave","otroValor"));
+		assertEquals("com.fiuba.tecnicas.logging.MailAppender + arg_A + arg_B",source.getValue("customSave","otroValor","LoggerTest"));
 	}
 
 }

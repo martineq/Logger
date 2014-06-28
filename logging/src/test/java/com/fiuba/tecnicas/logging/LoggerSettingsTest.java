@@ -4,12 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import com.fiuba.tecnicas.logging.saver.LogSaver;
 
 /**
  * @author Martin Quiroz
  *
- *  Based on config file selected (properties)
+ *  Based on config file selected (properties), "LoggerTest" configuration.
  */
 public class LoggerSettingsTest {
 
@@ -18,7 +19,7 @@ public class LoggerSettingsTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		loggerSettings = new LoggerSettings();
-		loggerSettings.fileUploadProperties();
+		loggerSettings.fileUploadProperties("LoggerTest");
 	}
 
 	@Test
@@ -96,5 +97,9 @@ public class LoggerSettingsTest {
 		assertTrue(mailAppender.getArgs().equals("arg_A arg_B"));
 	}
 	
+	@Test
+	public void testGetCustomFilters(){
+		assertEquals("%m", loggerSettings.getCustomFilters());
+	}	
 	
 }

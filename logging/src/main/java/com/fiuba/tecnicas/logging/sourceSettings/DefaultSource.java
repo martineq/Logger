@@ -18,14 +18,8 @@ public class DefaultSource implements SourceSettings {
 	}
 
 	@Override
-	public String getValue(String key, String defaultValue) {
+	public String getValue(String key, String defaultValue,String loggerName) {
 		return defaultValue;
-	}
-
-	@Override
-	public String getValue(String key, String defaultValue, String loggerName) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

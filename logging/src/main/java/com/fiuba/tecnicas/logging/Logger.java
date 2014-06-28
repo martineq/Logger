@@ -16,8 +16,7 @@ public class Logger {
 		name = loggerName;
 		active = true;
 		configuration = new LoggerSettings();
-		configuration.setLoggerName(loggerName);
-		this.getSettings().fileUploadProperties();
+		this.getSettings().fileUploadProperties(loggerName);
 		this.activate();
 	}
 

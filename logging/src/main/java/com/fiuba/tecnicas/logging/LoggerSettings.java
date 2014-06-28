@@ -48,7 +48,6 @@ public class LoggerSettings {
 	private String userCustomSaveArgs;
 	private String userCustomFilters;
 	private LoggerFilters filters;
-	private String name;
 	
 	public LoggerSettings(){
 		consoleLogging = true;
@@ -61,10 +60,6 @@ public class LoggerSettings {
 		userCustomSaveArgs = EMPTY_STRING;
 	}
 
-	public void setName(String name){
-		this.name=name;
-	}
-	
 	public String getLevelFilter(){
 		return levelFilter.toString();
 	}
@@ -106,10 +101,12 @@ public class LoggerSettings {
 
 	/**
 	 * @author Martin Quiroz
+	 * @param loggerName name of logger selected to upload properties
 	 * Loads the source file and saves the values readed
 	 * On file error, loads default values
 	 */
-	public void fileUploadProperties(){
+	public void fileUploadProperties(String loggerName){
+		this.loggerName = loggerName;
 		SourceSettings usedSource = new DefaultSource();
 		List<SourceSettings> sourceList = new ArrayList<SourceSettings>();
 		boolean available = false;
@@ -129,7 +126,6 @@ public class LoggerSettings {
 	}
 
     private void loadPropertiesValues(SourceSettings source){
-    	//name = source.getValue("name",EMPTY_STRING, name);
         separator = source.getValue(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE, loggerName);
         obtainLevelFilter(source);
         if( !((source.getValue(CONSOLE_USE_LABEL,CONSOLE_TRUE_LABEL, loggerName)).equals(CONSOLE_TRUE_LABEL)) ){
@@ -162,6 +158,7 @@ public class LoggerSettings {
     	if( !(paths.equals(EMPTY_STRING)) ){ filePaths = divideStringWithSeparator(paths,SPLIT_ALL);}
     }
     
+    //TODO: Si no se usa, sacar.
     private void obtainCustomFilter(SourceSettings source){
     	String level = source.getValue(CUSTOM_FILTER_LABEL,EMPTY_STRING, loggerName); 
     	if(level.equals(EMPTY_STRING)){
@@ -169,6 +166,7 @@ public class LoggerSettings {
     	} 
         levelFilter =  LoggerLevels.valueOf(level);
     }
+    
     private void obtainLevelFilter(SourceSettings source){
     	String level = source.getValue(LEVEL_LABEL,EMPTY_STRING, loggerName); 
     	if(level.equals(EMPTY_STRING)){
@@ -187,10 +185,6 @@ public class LoggerSettings {
 		return loggerName;
 	}
 	
-	public void setLoggerName(String loggerName) {
-		this.loggerName = loggerName;
-	}
-
 	public Formatter getFormatter() {
 		FormatterManager manager = new FormatterManager(getFormat());
 		Formatter formatter = manager.getFormatter();

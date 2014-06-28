@@ -27,27 +27,27 @@ public class DefaultSourceTest {
 
 	@Test
 	public final void testGetSeparatorValue() {
-		assertEquals("valorSeparator",source.getValue("separator","valorSeparator", null));
+		assertEquals("valorSeparator",source.getValue("separator","valorSeparator", "LoggerTest"));
 	}
 
 	@Test
 	public final void testGetFormatValue() {
-		assertEquals("valorFormat",source.getValue("format","valorFormat", null));
+		assertEquals("valorFormat",source.getValue("format","valorFormat", "LoggerTest"));
 	}
 
 	@Test
 	public final void testGetLevelValue() {
-		assertEquals("valorLevel",source.getValue("level","valorLevel", null));
+		assertEquals("valorLevel",source.getValue("level","valorLevel", "LoggerTest"));
 	}
 
 	@Test
 	public final void testGetPathValue() {
-		assertEquals("valorPath",source.getValue("path","valorPath", null));
+		assertEquals("valorPath",source.getValue("path","valorPath", "LoggerTest"));
 	}
 
 	@Test
 	public final void testGetConsoleValue() {
-		assertEquals("valorConsole",source.getValue("console","valorConsole", null));
+		assertEquals("valorConsole",source.getValue("console","valorConsole", "LoggerTest"));
 	}
 
 	@Test

@@ -16,10 +16,9 @@ public class LoggerNamePatternTest {
 		String messageToParse = "%g";
 		Log log = new Log("ojo con el test","WARN");
 		LoggerSettings setting = new LoggerSettings();
-		setting.setLoggerName("LoggerA");
 		log.setConfig(setting);
 		UserFormatter userFormatter = new UserFormatter(messageToParse);
 		userFormatter.setLog(log);
-		assertEquals("LoggerA",userFormatter.getMessage());
+		assertEquals("LoggerTest",userFormatter.getMessage());
 	}
 }
