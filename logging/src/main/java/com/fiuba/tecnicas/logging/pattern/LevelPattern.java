@@ -9,8 +9,7 @@ public class LevelPattern extends Pattern {
 	public String getMessage() {
 		String message = this.log.getLevel();
 		
-		String result = this.applyFilter(message);
-		return result.equals("") ? "" :message + attribute;
+		return this.applyFilter(message);
 	}
 	
 	@Override

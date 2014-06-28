@@ -11,7 +11,7 @@ public class FilePattern  extends Pattern {
 			message += fileName;
 			message += " ";
 		}
-		message += this.attribute;
+		//message += this.attribute;
 		
 		return this.applyFilter(message);
 	}

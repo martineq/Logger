@@ -7,7 +7,6 @@ public class MethodPattern extends Pattern {
 	@Override
 	public String getMessage() {
 		String message = Thread.currentThread().getStackTrace()[layerCalledLogSave].getMethodName(); 
-		message += attribute;
 		return this.applyFilter(message);
 	}
 	

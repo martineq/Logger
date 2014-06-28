@@ -30,6 +30,6 @@ public abstract class Pattern {
 	}
 	
 	protected String applyFilter(String message) {
-		return message.matches(this.filter) ? message :"" ;
+		return message.matches(this.filter) ? message+attribute :"" ;
 	}
 }
