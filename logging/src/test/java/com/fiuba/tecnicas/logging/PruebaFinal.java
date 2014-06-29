@@ -21,6 +21,12 @@ public class PruebaFinal {
 
 	public void saveLog(String messageToSave) {
 		this.logs.add(messageToSave);
+		printArray();
 		
+	}
+	
+	private void printArray() { 
+		for (String item : logs)
+			System.out.println(item); 
 	}
 }
