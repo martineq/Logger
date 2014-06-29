@@ -47,8 +47,18 @@ public class UserFormatter implements Formatter{
 	private void parseMessage(){
 		
 		String[] parts = this.format.split("%");
+		boolean isEmptyLastMessage = false;
+		int i = 0; // la primera cadena siempre es vacia porque siempre arranca con un patron
 		for (String part : parts){ 
-			this.savePattern(part);
+			if (i != 0){
+				if (isPercentSymbol(part) && !isEmptyLastMessage)
+					isEmptyLastMessage = true;
+				else{
+					this.savePattern(part,isEmptyLastMessage);
+					isEmptyLastMessage = false;
+				}
+			}
+			i++;
 		}
 	}
 
@@ -62,8 +72,8 @@ public class UserFormatter implements Formatter{
 	 * @param part, cadena luego del % para obtener el primer caracter y asi crear la instancia
 	 * del patron correspondiente.
 	 */
-	private void savePattern(String part) {
-		if(!this.isPercentSymbol(part)){
+	private void savePattern(String part, boolean youMustCreatePercentagePattern) {
+		if(!youMustCreatePercentagePattern){
 			Pattern pattern = this.getOption(part);
 			if(pattern == null){
 				return; //No hay nada asociado a ese pattern
@@ -72,7 +82,11 @@ public class UserFormatter implements Formatter{
 			pattern.setLog(log);
 			formattedMessages.add(pattern);
 		}else{
-			formattedMessages.add(new PorcentajePattern());
+			Pattern pattern = new PorcentajePattern();
+			pattern.setAttributes(part);
+			pattern.setLog(log);
+			formattedMessages.add(pattern);
+			//formattedMessages.add(new PorcentajePattern());
 		}
 			
 		

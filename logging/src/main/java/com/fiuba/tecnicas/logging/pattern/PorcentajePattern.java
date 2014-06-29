@@ -5,7 +5,7 @@ public class PorcentajePattern extends Pattern {
 
 	@Override
 	public String getMessage() {
-		return "%";
+		return "% " + this.attribute;
 	}
 
 }
