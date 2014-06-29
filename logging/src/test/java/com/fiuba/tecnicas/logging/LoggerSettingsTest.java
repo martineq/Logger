@@ -85,15 +85,13 @@ public class LoggerSettingsTest {
 
 	@Test
 	public void testGetSaverClass(){
-		LogSaver logSaver = loggerSettings.getSaver();
-		MailAppender mailAppender = (MailAppender) logSaver;
+		MailAppender mailAppender = (MailAppender) loggerSettings.getSaver();
 		assertTrue(mailAppender.save("hola").equals("Mail-hola"));
 	}
 	
 	@Test
 	public void testGetSaverArguments(){
-		LogSaver logSaver = loggerSettings.getSaver();
-		MailAppender mailAppender = (MailAppender) logSaver;
+		MailAppender mailAppender = (MailAppender) loggerSettings.getSaver();
 		assertTrue(mailAppender.getArgs().equals("arg_A arg_B"));
 	}
 	
