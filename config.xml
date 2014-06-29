@@ -13,7 +13,7 @@
 		<console>true</console>
 		<regexFilter>.*</regexFilter>
 		<customFilter>%m.*tp.*%pDEBUG</customFilter>
-		<customSave>com.fiuba.tecnicas.logging.MailAppender + arg_A + arg_B</customSave>
+		<customSave>com.fiuba.tecnicas.logging.MailAppender - arg_A - arg_B</customSave>
 		<separator>-</separator>
 	</Logger2>
 	<Logger3>

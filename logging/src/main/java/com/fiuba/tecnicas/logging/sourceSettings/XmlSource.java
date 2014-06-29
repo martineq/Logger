@@ -36,13 +36,10 @@ public class XmlSource implements SourceSettings {
     		domElement = domDocument.getDocumentElement();
         } catch (ParserConfigurationException pce) {
         	available = false;
-            System.out.println(pce.getMessage());
         } catch (SAXException se) {
         	available = false;
-        	System.out.println(se.getMessage());
         } catch (IOException ioe) {
         	available = false;
-            System.err.println(ioe.getMessage());
         }
         
 	}
