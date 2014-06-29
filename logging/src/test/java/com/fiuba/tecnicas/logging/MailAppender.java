@@ -17,6 +17,8 @@ public class MailAppender extends LogSaver{
 	
 	@Override
 	public String save(String messageToSave) {
+		PruebaFinal customDestination = PruebaFinal.getInstance();
+		customDestination.saveLog(messageToSave);
 		return "Mail-"+messageToSave;
 	}
 	
