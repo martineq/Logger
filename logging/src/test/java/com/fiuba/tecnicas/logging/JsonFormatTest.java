@@ -19,7 +19,8 @@ public class JsonFormatTest {
 		log.setConfig(setting);
 		JsonFormatter formatter = new JsonFormatter();
 		formatter.setLog(log);
-		
+		String customFilter = ".*";
+		formatter.setCustomFilters(customFilter);
 		String myJSONString = formatter.getMessage();
 		
 		LogJson logJson = new Gson().fromJson(myJSONString, LogJson.class);
@@ -35,7 +36,8 @@ public class JsonFormatTest {
 		log.setConfig(setting);
 		JsonFormatter formatter = new JsonFormatter();
 		formatter.setLog(log);
-		
+		String customFilter = ".*";
+		formatter.setCustomFilters(customFilter);
 		String myJSONString = formatter.getMessage();
 		
 		LogJson logJson = new Gson().fromJson(myJSONString, LogJson.class);
