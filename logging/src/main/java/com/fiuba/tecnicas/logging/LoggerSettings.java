@@ -43,11 +43,11 @@ public class LoggerSettings {
 	private LoggerLevels levelFilter;
 	private String formatList;
 	private String[] filePaths;
-	private String loggerName;
+	private LoggerFilters filters;
 	private String userCustomSave;
 	private String userCustomSaveArgs;
 	private String userCustomFilters;
-	private LoggerFilters filters;
+	private String loggerName;
 	
 	public LoggerSettings(){
 		consoleLogging = true;
@@ -58,6 +58,8 @@ public class LoggerSettings {
 		filters = new LoggerFilters();
 		userCustomSave = EMPTY_STRING;
 		userCustomSaveArgs = EMPTY_STRING;
+		userCustomFilters = EMPTY_STRING;
+		loggerName = EMPTY_STRING;
 	}
 
 	public String getLevelFilter(){
@@ -126,15 +128,15 @@ public class LoggerSettings {
 	}
 
     private void loadPropertiesValues(SourceSettings source){
-        separator = source.getValue(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE, loggerName);
-        obtainLevelFilter(source);
         if( !((source.getValue(CONSOLE_USE_LABEL,CONSOLE_TRUE_LABEL, loggerName)).equals(CONSOLE_TRUE_LABEL)) ){
         	consoleLogging = false;
         }
-        obtainFormats(source);
-        obtainPaths(source);
+    	separator = source.getValue(SEPARATOR_LABEL,SEPARATOR_DEFAULT_VALUE, loggerName);
+    	obtainLevelFilter(source);
+    	obtainFormats(source);
+    	obtainPaths(source);
+    	filters.setRegexFilter(source.getValue(REGEX_FILTER_LABEL,EMPTY_STRING, loggerName));
         obtainUserCustomSaveAndArgs(source);
-        filters.setRegexFilter(source.getValue(REGEX_FILTER_LABEL,EMPTY_STRING, loggerName));
         userCustomFilters = source.getValue(CUSTOM_FILTER_LABEL,EMPTY_STRING, loggerName);
     }
 
@@ -156,15 +158,6 @@ public class LoggerSettings {
     private void obtainPaths(SourceSettings source){
     	String paths = source.getValue(LOG_PATH_LABEL,EMPTY_STRING, loggerName);
     	if( !(paths.equals(EMPTY_STRING)) ){ filePaths = divideStringWithSeparator(paths,SPLIT_ALL);}
-    }
-    
-    //TODO: Si no se usa, sacar.
-    private void obtainCustomFilter(SourceSettings source){
-    	String level = source.getValue(CUSTOM_FILTER_LABEL,EMPTY_STRING, loggerName); 
-    	if(level.equals(EMPTY_STRING)){
-    		level = source.getValue(LEVEL_LABEL,LEVEL_DEFAULT_VALUE, loggerName);
-    	} 
-        levelFilter =  LoggerLevels.valueOf(level);
     }
     
     private void obtainLevelFilter(SourceSettings source){
