@@ -71,7 +71,7 @@ public class Log {
 		return this.config.getFilePaths();
 	}
 
-	public Object getLoggerName() {
+	public String getLoggerName() {
 		return this.config.getLoggerName();
 	}
 	

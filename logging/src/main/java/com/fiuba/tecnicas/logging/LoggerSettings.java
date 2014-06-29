@@ -195,9 +195,12 @@ public class LoggerSettings {
 	public LogSaver getSaver() {
 		if(userCustomSave != EMPTY_STRING ){
 			try {
+				System.out.println(userCustomSave);
 				Constructor<?> constructor = Class.forName(userCustomSave).getConstructor(String.class);
+				
 				return (LogSaver) constructor.newInstance(userCustomSaveArgs);
 			} catch (Exception e) {
+				
 				System.out.println(e.getMessage());
 				return new ConsoleSaver("User Class Not Found Error");
 			}

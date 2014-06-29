@@ -5,7 +5,7 @@ import com.fiuba.tecnicas.logging.Log;
 public abstract class Pattern {
 	
 	protected Log log;
-	protected String attribute;
+	protected String attribute = "";
 	protected String filter = ".*";
 	public abstract String getMessage();
 	

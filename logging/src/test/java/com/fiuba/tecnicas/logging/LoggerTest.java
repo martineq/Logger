@@ -56,8 +56,8 @@ public class LoggerTest {
 	@Test
 	public void getNameShouldReturnTheLoggerName(){
 		LoggerFactory loggerFactory = LoggerFactory.getInstance();
-		Logger unLogger = loggerFactory.getLogger("Logger B");
-		assertEquals("Logger B",unLogger.getName());
+		Logger unLogger = loggerFactory.getLogger("Logger1");
+		assertEquals("Logger1",unLogger.getName());
 		
 	}
 	

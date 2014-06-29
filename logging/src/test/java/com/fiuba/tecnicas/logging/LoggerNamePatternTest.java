@@ -13,12 +13,14 @@ import com.fiuba.tecnicas.logging.pattern.DatePattern;
 public class LoggerNamePatternTest {
 	@Test
 	public void withGShowLoggerNameTest(){
-		String messageToParse = "%g";
+		String messageToParse = " %g";
 		Log log = new Log("ojo con el test","WARN");
 		LoggerSettings setting = new LoggerSettings();
+		setting.fileUploadProperties("LoggerTest");
 		log.setConfig(setting);
 		UserFormatter userFormatter = new UserFormatter(messageToParse);
 		userFormatter.setLog(log);
+		userFormatter.setCustomFilters(".*");
 		assertEquals("LoggerTest",userFormatter.getMessage());
 	}
 }

@@ -23,7 +23,8 @@ public class FileSaver extends LogSaver {
 			 try{
 				 file = new FileWriter(fileName,true);
 				 pw = new PrintWriter(file);
-				 pw.println(messageToSave); //aca se escribe en el archivo lo que se va a loguear
+				 if(!messageToSave.equals(""))
+					 pw.println(messageToSave); //aca se escribe en el archivo lo que se va a loguear
 			 }catch(IOException e){
 				 e.printStackTrace();
 				

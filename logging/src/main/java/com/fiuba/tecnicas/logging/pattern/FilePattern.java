@@ -10,9 +10,7 @@ public class FilePattern  extends Pattern {
 		for(String fileName : log.getFilePaths()){
 			message += fileName;
 			message += " ";
-		}
-		//message += this.attribute;
-		
+		}	
 		return this.applyFilter(message);
 	}
 	

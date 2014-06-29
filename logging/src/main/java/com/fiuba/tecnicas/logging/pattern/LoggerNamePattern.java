@@ -6,7 +6,6 @@ public class LoggerNamePattern extends Pattern {
 	public String getMessage() {
 		String message = "";
 		message += log.getLoggerName();
-		message += this.attribute;
 		return this.applyFilter(message);
 	}
 	
