@@ -5,7 +5,7 @@ public class ThreadFilter extends Filter {
 	@Override
 	public boolean passFilter() {
 		String message = Thread.currentThread().getName();
-		return filter.matches(message);
+		return message.matches(filter);
 	}
 
 }

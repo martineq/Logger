@@ -4,7 +4,7 @@ public class LoggerNameFilter extends Filter {
 
 	@Override
 	public boolean passFilter() {
-		return filter.matches(this.log.getLoggerName());
+		return this.log.getLoggerName().matches(filter);
 	}
 
 }

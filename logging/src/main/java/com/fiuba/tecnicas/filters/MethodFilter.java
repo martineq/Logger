@@ -6,7 +6,7 @@ public class MethodFilter extends Filter {
 	public boolean passFilter() {
 		int level = Thread.currentThread().getStackTrace().length -1 ;
 		String message = Thread.currentThread().getStackTrace()[level].getMethodName(); 
-		return filter.matches(message);
+		return message.matches(filter);
 	}
 
 }

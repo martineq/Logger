@@ -10,7 +10,7 @@ public class DateFilter extends Filter {
 
 	@Override
 	public boolean passFilter() {
-		return filter.matches(parseAttribute());
+		return parseAttribute().matches(filter);
 	}
 	
 	private String parseAttribute() {

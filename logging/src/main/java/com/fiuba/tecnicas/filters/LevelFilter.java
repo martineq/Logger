@@ -5,7 +5,7 @@ public class LevelFilter extends Filter {
 
 	@Override
 	public boolean passFilter() {
-		return filter.matches(this.log.getLevel());
+		return this.log.getLevel().matches(filter);
 	}
 
 }

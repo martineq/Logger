@@ -5,7 +5,7 @@ public class FileFilter extends Filter {
 	@Override
 	public boolean passFilter() {
 		for(String fileName : log.getFilePaths()){
-			if(filter.matches(fileName))
+			if(fileName.matches(filter))
 				return true;
 		}	
 		return false;

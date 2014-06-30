@@ -9,7 +9,6 @@ public abstract class Filter {
 	
 	public void setAttributes(String filter) {
 		this.filter = filter.substring(1);
-		
 	}
 
 	public void setLog(Log log) {

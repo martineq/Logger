@@ -3,6 +3,7 @@ package com.fiuba.tecnicas.logging.formatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fiuba.tecnicas.filters.FilterConstants;
 import com.fiuba.tecnicas.logging.Log;
 import com.fiuba.tecnicas.logging.MessageFunctionConstants;
 import com.fiuba.tecnicas.logging.pattern.Pattern;
@@ -18,13 +19,11 @@ import com.fiuba.tecnicas.logging.pattern.PorcentajePattern;
  * ingresados por el usuario.
  *
  */
-public class UserFormatter implements Formatter{
+public class UserFormatter extends Formatter{
 
 	private String format;
 	private List<Pattern> formattedMessages =  new ArrayList<Pattern>();
 	private MessageFunctionConstants messageFunctions = new MessageFunctionConstants();
-	private Log log;
-	private String customFilters;
 	
 	/**
 	 * Constructor de la clase
@@ -105,16 +104,17 @@ public class UserFormatter implements Formatter{
 		this.parseMessage();
 		this.parseFilters();
 		String message = "";
-		for (Pattern pattern : formattedMessages){
-			String messageToAppend = pattern.getMessage();
-			if(messageToAppend.equals("")){
-				return "";
+		if (isAValidMessage()){
+			for (Pattern pattern : formattedMessages){
+				String messageToAppend = pattern.getMessage();
+				if(messageToAppend.equals("")){
+					return "";
+				}
+				message += messageToAppend;
 			}
-			message += messageToAppend;
+			return message;
 		}
-			
-		
-		return message;
+		return "";	
 	}
 
 	@Override
@@ -123,20 +123,6 @@ public class UserFormatter implements Formatter{
 		
 	}
 	
-	private void parseFilters() {
-		String[] parts = this.customFilters.split("%");
-		for (String part : parts){
-			if(!this.isPercentSymbol(part)){
-				Pattern pattern = this.getOption(part);
-				for (Pattern patternInList : formattedMessages){
-					if(patternInList.equals(pattern)){
-						patternInList.addFilter(part);
-					}
-				}
-			}	
-		}
-			
-		
-	}
+
 
 }

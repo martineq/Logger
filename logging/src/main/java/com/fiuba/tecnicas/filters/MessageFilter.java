@@ -4,7 +4,7 @@ public class MessageFilter extends Filter {
 
 	@Override
 	public boolean passFilter() {
-		return filter.matches(this.log.getMessage());
+		return this.log.getMessage().matches(filter);
 	}
 
 }
